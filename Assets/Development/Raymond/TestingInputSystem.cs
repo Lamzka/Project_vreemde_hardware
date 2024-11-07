@@ -25,14 +25,14 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
     ""name"": ""test"",
     ""maps"": [
         {
-            ""name"": ""New action map"",
+            ""name"": ""Wheel"",
             ""id"": ""dd128165-c3e2-4d78-b373-11f230b20690"",
             ""actions"": [
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Steering Wheel"",
                     ""type"": ""Value"",
-                    ""id"": ""2da32d70-25d0-4b6d-9a15-a8278db34a72"",
-                    ""expectedControlType"": """",
+                    ""id"": ""e11f018e-34a0-4274-b6d2-8717cb61905c"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -40,29 +40,51 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""af474362-c126-4c01-bff7-6a43296590a7"",
-                    ""path"": ""<Joystick>/stick/right"",
+                    ""name"": ""Directions"",
+                    ""id"": ""bd8d322d-d347-46b8-8ffa-1c72aa96e30a"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
+                    ""action"": ""Steering Wheel"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""1e099702-5df4-41cc-9a3f-1c2534f754d1"",
+                    ""path"": ""<HID::Logitech G29 Driving Force Racing Wheel>/stick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""451ede6d-02e5-4419-b869-f8501ca6df5b"",
+                    ""path"": ""<HID::Logitech G29 Driving Force Racing Wheel>/stick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Steering Wheel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // New action map
-        m_Newactionmap = asset.FindActionMap("New action map", throwIfNotFound: true);
-        m_Newactionmap_Newaction = m_Newactionmap.FindAction("New action", throwIfNotFound: true);
+        // Wheel
+        m_Wheel = asset.FindActionMap("Wheel", throwIfNotFound: true);
+        m_Wheel_SteeringWheel = m_Wheel.FindAction("Steering Wheel", throwIfNotFound: true);
     }
 
     ~@TestingInputSystem()
     {
-        Debug.Assert(!m_Newactionmap.enabled, "This will cause a leak and performance issues, TestingInputSystem.Newactionmap.Disable() has not been called.");
+        Debug.Assert(!m_Wheel.enabled, "This will cause a leak and performance issues, TestingInputSystem.Wheel.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -121,53 +143,53 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // New action map
-    private readonly InputActionMap m_Newactionmap;
-    private List<INewactionmapActions> m_NewactionmapActionsCallbackInterfaces = new List<INewactionmapActions>();
-    private readonly InputAction m_Newactionmap_Newaction;
-    public struct NewactionmapActions
+    // Wheel
+    private readonly InputActionMap m_Wheel;
+    private List<IWheelActions> m_WheelActionsCallbackInterfaces = new List<IWheelActions>();
+    private readonly InputAction m_Wheel_SteeringWheel;
+    public struct WheelActions
     {
         private @TestingInputSystem m_Wrapper;
-        public NewactionmapActions(@TestingInputSystem wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Newactionmap_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Newactionmap; }
+        public WheelActions(@TestingInputSystem wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SteeringWheel => m_Wrapper.m_Wheel_SteeringWheel;
+        public InputActionMap Get() { return m_Wrapper.m_Wheel; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(NewactionmapActions set) { return set.Get(); }
-        public void AddCallbacks(INewactionmapActions instance)
+        public static implicit operator InputActionMap(WheelActions set) { return set.Get(); }
+        public void AddCallbacks(IWheelActions instance)
         {
-            if (instance == null || m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
+            if (instance == null || m_Wrapper.m_WheelActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_WheelActionsCallbackInterfaces.Add(instance);
+            @SteeringWheel.started += instance.OnSteeringWheel;
+            @SteeringWheel.performed += instance.OnSteeringWheel;
+            @SteeringWheel.canceled += instance.OnSteeringWheel;
         }
 
-        private void UnregisterCallbacks(INewactionmapActions instance)
+        private void UnregisterCallbacks(IWheelActions instance)
         {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
+            @SteeringWheel.started -= instance.OnSteeringWheel;
+            @SteeringWheel.performed -= instance.OnSteeringWheel;
+            @SteeringWheel.canceled -= instance.OnSteeringWheel;
         }
 
-        public void RemoveCallbacks(INewactionmapActions instance)
+        public void RemoveCallbacks(IWheelActions instance)
         {
-            if (m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_WheelActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(INewactionmapActions instance)
+        public void SetCallbacks(IWheelActions instance)
         {
-            foreach (var item in m_Wrapper.m_NewactionmapActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_WheelActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_NewactionmapActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_WheelActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public NewactionmapActions @Newactionmap => new NewactionmapActions(this);
-    public interface INewactionmapActions
+    public WheelActions @Wheel => new WheelActions(this);
+    public interface IWheelActions
     {
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnSteeringWheel(InputAction.CallbackContext context);
     }
 }

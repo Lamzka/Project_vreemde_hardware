@@ -17,7 +17,7 @@ public class RotationBox : MonoBehaviour
 
     private void Rotate()
     {
-        this.transform.Rotate(0, Mathf.Clamp(steeringWheelInput.steeringInput, -360, 360), 0);
+        this.transform.Rotate(0, steeringWheelInput.steeringInput, 0);
     }
 
 }

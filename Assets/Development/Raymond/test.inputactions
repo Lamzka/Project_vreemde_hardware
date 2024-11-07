@@ -2,14 +2,14 @@
     "name": "test",
     "maps": [
         {
-            "name": "New action map",
+            "name": "Wheel",
             "id": "dd128165-c3e2-4d78-b373-11f230b20690",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Steering Wheel",
                     "type": "Value",
-                    "id": "2da32d70-25d0-4b6d-9a15-a8278db34a72",
-                    "expectedControlType": "",
+                    "id": "e11f018e-34a0-4274-b6d2-8717cb61905c",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -17,15 +17,37 @@
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "af474362-c126-4c01-bff7-6a43296590a7",
-                    "path": "<Joystick>/stick/right",
+                    "name": "Directions",
+                    "id": "bd8d322d-d347-46b8-8ffa-1c72aa96e30a",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
-                    "isComposite": false,
+                    "action": "Steering Wheel",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "1e099702-5df4-41cc-9a3f-1c2534f754d1",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "451ede6d-02e5-4419-b869-f8501ca6df5b",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Steering Wheel",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
