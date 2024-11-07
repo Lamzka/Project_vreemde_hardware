@@ -1,0 +1,34 @@
+{
+    "name": "test",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "dd128165-c3e2-4d78-b373-11f230b20690",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Value",
+                    "id": "2da32d70-25d0-4b6d-9a15-a8278db34a72",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "af474362-c126-4c01-bff7-6a43296590a7",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

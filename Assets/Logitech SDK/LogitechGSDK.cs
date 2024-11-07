@@ -1,9 +1,7 @@
-using UnityEngine;
-using System.Collections;
-using System.Runtime.InteropServices;
-using System.Collections.Specialized;
 using System;
+using System.Runtime.InteropServices;
 using System.Text;
+using UnityEngine;
 
 public class LogitechGSDK
 {
@@ -25,7 +23,7 @@ public class LogitechGSDK
     public const int LOGI_ARX_DEVICETYPE_ANDROID_OTHER = 0x07;
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void logiArxCB(int eventType, int eventValue, [MarshalAs(UnmanagedType.LPWStr)]String eventArg, IntPtr context);
+    public delegate void logiArxCB(int eventType, int eventValue, [MarshalAs(UnmanagedType.LPWStr)] String eventArg, IntPtr context);
 
     public struct logiArxCbContext
     {
@@ -392,7 +390,7 @@ public class LogitechGSDK
     }
 
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void logiGkeyCB(GkeyCode gkeyCode, [MarshalAs(UnmanagedType.LPWStr)]String gkeyOrButtonString, IntPtr context);
+    public delegate void logiGkeyCB(GkeyCode gkeyCode, [MarshalAs(UnmanagedType.LPWStr)] String gkeyOrButtonString, IntPtr context);
 
     public struct logiGKeyCbContext
     {
@@ -530,14 +528,14 @@ public class LogitechGSDK
     [StructLayout(LayoutKind.Sequential, Pack = 2)]
     public struct DIJOYSTATE2ENGINES
     {
-        public int lX;                     /* x-axis position              */
-        public int lY;                     /* y-axis position              */
+        public int SteeringWheel;                     /* x-axis position              */
+        public int Gaspedal;                     /* y-axis position              */
         public int lZ;                     /* z-axis position              */
         public int lRx;                    /* x-axis rotation              */
         public int lRy;                    /* y-axis rotation              */
-        public int lRz;                    /* z-axis rotation              */
+        public int BreakPedal;                    /* z-axis rotation              */
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
-        public int[] rglSlider;              /* extra axes positions         */
+        public int[] ClutchPedal;              /* extra axes positions         */
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 4)]
         public uint[] rgdwPOV;                          /* POV directions               */
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 128)]
@@ -584,7 +582,7 @@ public class LogitechGSDK
     public static DIJOYSTATE2ENGINES LogiGetStateUnity(int index)
     {
         DIJOYSTATE2ENGINES ret = new DIJOYSTATE2ENGINES();
-        ret.rglSlider = new int[2];
+        ret.ClutchPedal = new int[2];
         ret.rgdwPOV = new uint[4];
         ret.rgbButtons = new byte[128];
         ret.rglVSlider = new int[2];
