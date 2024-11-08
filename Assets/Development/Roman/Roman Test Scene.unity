@@ -394,7 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starPrefab: {fileID: 4113789515169532621, guid: 3e4a25cea7262c2459dc2e6a0d6ffcc1,
     type: 3}
-  spawnTimer: 2
+  spawnTimer: 1
 --- !u!1 &1559836687
 GameObject:
   m_ObjectHideFlags: 0

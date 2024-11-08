@@ -15,7 +15,6 @@ public class Starspawning : MonoBehaviour
         {
             StarSpawning();
         }
-        
     }
 
     private void StarSpawning()
@@ -24,7 +23,7 @@ public class Starspawning : MonoBehaviour
         
         Instantiate<GameObject>(starPrefab, randomPosition, Quaternion.identity);
 
-        spawnTimer = 2;
+        spawnTimer = 1;
     }
 
 }
