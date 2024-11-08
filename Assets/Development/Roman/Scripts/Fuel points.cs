@@ -14,10 +14,10 @@ public class Fuelpoints : Pickup
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Star"))
         {
             Activate();
-            gameObject.SetActive(false);
+            Destroy(other.gameObject);
         }
     }
 }
