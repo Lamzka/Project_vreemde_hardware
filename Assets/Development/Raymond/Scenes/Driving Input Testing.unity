@@ -169,6 +169,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4d1ffb0f84561f48a9fa63c2260eb52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSteeringValue: 90
+  MinSteeringValue: -90
+  PedalIsPressed: 0
+  Smoothing: 2.5
 --- !u!114 &74328047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +185,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44e16e548b913b64b8671f213231c193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSteeringValue: 360
+  MinSteeringValue: -360
   steeringInput: 0
   gasPedalInput: 0
   brakePedalInput: 0
