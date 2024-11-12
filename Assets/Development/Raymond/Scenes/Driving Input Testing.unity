@@ -199,7 +199,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 171186665}
-  - component: {fileID: 171186666}
   m_Layer: 0
   m_Name: Input Debug
   m_TagString: Untagged
@@ -222,18 +221,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 245212408}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &171186666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 171186664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3047a8618a80261439a21993d26653a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &245212407
 GameObject:
   m_ObjectHideFlags: 0
@@ -3543,6 +3530,7 @@ GameObject:
   - component: {fileID: 8140644882364097945}
   - component: {fileID: 8140644882364097941}
   - component: {fileID: 8140644882364097946}
+  - component: {fileID: 8140644882364097947}
   m_Layer: 0
   m_Name: ShipPrototype
   m_TagString: Untagged
@@ -3628,6 +3616,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ridgidBody: {fileID: 0}
+  isUsingGravity: 0
+  hightForce: 5
+  ForceSmoothing: 5
 --- !u!114 &8140644882364097946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3640,6 +3631,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff198935f163ee744bee4e8519d4e92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonStates: 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+--- !u!114 &8140644882364097947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8140644882364097940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9da02b8b2e9f5a42a94de32f69bbef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GasPedalValue: 0
+  BreakPedalValue: 0
 --- !u!4 &8298681930832424627
 Transform:
   m_ObjectHideFlags: 0

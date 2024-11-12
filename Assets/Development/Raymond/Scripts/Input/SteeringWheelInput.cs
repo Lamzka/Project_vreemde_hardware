@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class SteeringWheelInput : MonoBehaviour
 {
+
+
+
+
     public float MaxSteeringValue = 360;
     public float MinSteeringValue = -360;
 
@@ -20,12 +24,12 @@ public class SteeringWheelInput : MonoBehaviour
 
     public void Start()
     {
-        LogitechGSDK.LogiSteeringInitialize(true);
-    }
+        Debug.Log("SteeringInit:" + LogitechGSDK.LogiSteeringInitialize(false));
 
+    }
     private void Update()
     {
-
+        LogitechGSDK.LogiUpdate();
 
         rec = LogitechGSDK.LogiGetStateUnity(0);
 
@@ -33,10 +37,12 @@ public class SteeringWheelInput : MonoBehaviour
         LogitechGSDK.LogiGetCurrentControllerProperties(0, ref actualProperties);
 
         GetWheelInput();
-        GetPedals();
-        /*GetButtons();*/
+
+
+
 
     }
+
 
     void GetWheelInput()
     {
@@ -46,13 +52,6 @@ public class SteeringWheelInput : MonoBehaviour
     }
 
 
-
-    void GetPedals()
-    {
-        gasPedalInput = rec.Gaspedal;
-        brakePedalInput = rec.BreakPedal;
-        /*ClutchPedalInput = rec.ClutchPedal;*/
-    }
 
 
 

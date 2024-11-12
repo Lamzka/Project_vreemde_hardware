@@ -6,10 +6,13 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
     [SerializeField]
     private Rigidbody ridgidBody;
 
-    private bool isKinimatic;
+    [SerializeField]
+    private bool isUsingGravity;
 
+    [SerializeField]
     private float hightForce;
 
+    [SerializeField]
     private float ForceSmoothing;
 
     void Start()
@@ -80,9 +83,10 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
 
     private void MoveUp(int isUp)
     {
-        Debug.Log("Move up");
+
         if (isUp == 14)
         {
+            Debug.Log("Move up");
             float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, ForceSmoothing * Time.deltaTime);
             ridgidBody.AddForce(0, AppliedForce, 0, ForceMode.Acceleration);
         }
@@ -90,9 +94,10 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
 
     private void MoveDown(int isDown)
     {
-        Debug.Log("moveDown");
+
         if (isDown == 15)
         {
+            Debug.Log("moveDown");
             float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, ForceSmoothing * Time.deltaTime);
             ridgidBody.AddForce(0, -AppliedForce, 0, ForceMode.Acceleration);
         }
@@ -100,18 +105,22 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
 
     private void TakeOffOrLand(int isPressed)
     {
-        Debug.Log("Facebutton 0 pressed");
-        if (isPressed == 0 && !isKinimatic)
+
+
+
+
+        if (isPressed == 0 && isUsingGravity)
         {
-            isKinimatic = true;
-            ridgidBody.isKinematic = isKinimatic;
+            Debug.Log("Facebutton 0 pressed");
+            isUsingGravity = false;
+            ridgidBody.useGravity = isUsingGravity;
             ridgidBody.AddForce(0, 0.5f, 0, ForceMode.Impulse);
 
         }
-        else if (isPressed == 0 && isKinimatic)
+        else if (isPressed == 0 && !isUsingGravity)
         {
-            isKinimatic = false;
-            ridgidBody.isKinematic = isKinimatic;
+            isUsingGravity = true;
+            ridgidBody.useGravity = isUsingGravity;
         }
     }
 

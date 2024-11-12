@@ -1,23 +1,40 @@
+using System.Collections.Generic;
+
 public class WheelButtonInput : RidgitbodyButtonSubject
 {
     private LogitechGSDK.DIJOYSTATE2ENGINES rec;
 
-    void Update()
-    {
-        rec = LogitechGSDK.LogiGetStateUnity(0);
-        LogitechGSDK.LogiControllerPropertiesData actualProperties = new LogitechGSDK.LogiControllerPropertiesData();
-        LogitechGSDK.LogiGetCurrentControllerProperties(0, ref actualProperties);
+    public List<bool> buttonStates = new List<bool>(new bool[128]);
+    bool isBeingPressed = false;
 
-        GetButtons();
+    float timer = 0;
+
+    private void Start()
+    {
+        LogitechGSDK.LogiSteeringInitialize(true);
     }
 
-    void GetButtons()
+    void Update()
     {
-        for (byte i = 0; i < 128; i++)
-        {
-            if (rec.rgbButtons[i] == 128)
-            {
+        LogitechGSDK.LogiUpdate();
 
+        UpdateButtonStates();
+    }
+
+    void UpdateButtonStates()
+    {
+        timer++;
+
+        for (int i = 0; i < buttonStates.Count; i++)
+        {
+            bool isPressed = LogitechGSDK.LogiButtonIsPressed(0, i);
+            LogitechGSDK.LogiButtonReleased(0, i);
+            buttonStates[i] = isPressed;
+
+            if (isPressed && timer > 50)
+            {
+                OnNotify(i);
+                timer = 0;
             }
         }
     }
