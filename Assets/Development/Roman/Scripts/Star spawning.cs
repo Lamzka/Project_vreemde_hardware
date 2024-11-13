@@ -5,9 +5,19 @@ using UnityEngine;
 public class Starspawning : MonoBehaviour
 {
     [SerializeField] private GameObject starPrefab;
+    [SerializeField] private Transform designatedSpawnArea;
     [SerializeField] private float spawnTimer;
 
-    void Update()
+    private void StarSpawning()
+    {
+        Vector3 randomPosition = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
+        
+        Instantiate<GameObject>(starPrefab, randomPosition, Quaternion.identity, designatedSpawnArea);
+
+        spawnTimer = 3;
+    }
+
+    private void OnTriggerStay(Collider other)
     {
         spawnTimer -= Time.deltaTime;
 
@@ -15,15 +25,6 @@ public class Starspawning : MonoBehaviour
         {
             StarSpawning();
         }
-    }
-
-    private void StarSpawning()
-    {
-        Vector3 randomPosition = new Vector3(Random.Range(-50, 50), Random.Range(-50, 50), Random.Range(-50, 50));
-        
-        Instantiate<GameObject>(starPrefab, randomPosition, Quaternion.identity);
-
-        spawnTimer = 1;
     }
 
 }

@@ -214,6 +214,76 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &457584600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457584601}
+  - component: {fileID: 457584602}
+  - component: {fileID: 457584603}
+  m_Layer: 0
+  m_Name: Star/Fuel Spawn area 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457584601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457584600}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.2, y: 0, z: 22.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &457584602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457584600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7632e198cdf3ba94cbeb74dcbb340ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starPrefab: {fileID: 4113789515169532621, guid: 3e4a25cea7262c2459dc2e6a0d6ffcc1,
+    type: 3}
+  designatedSpawnArea: {fileID: 457584601}
+  spawnTimer: 3
+--- !u!65 &457584603
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457584600}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 50, y: 50, z: 50}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &862410108
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +299,6 @@ GameObject:
   - component: {fileID: 862410114}
   - component: {fileID: 862410109}
   - component: {fileID: 862410118}
-  - component: {fileID: 862410119}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: Untagged
@@ -333,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 862410108}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.87578, y: 3.273, z: -1.173}
+  m_LocalPosition: {x: 5.52, y: 3.273, z: -9.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -380,21 +449,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelDepletion: {fileID: 862410109}
   AddFuelAmount: 10
---- !u!114 &862410119
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 862410108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7632e198cdf3ba94cbeb74dcbb340ce2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  starPrefab: {fileID: 4113789515169532621, guid: 3e4a25cea7262c2459dc2e6a0d6ffcc1,
-    type: 3}
-  spawnTimer: 1
 --- !u!1 &1559836687
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,3 +643,4 @@ SceneRoots:
   - {fileID: 1559836689}
   - {fileID: 712645071596001755}
   - {fileID: 862410113}
+  - {fileID: 457584601}
