@@ -1,8 +1,12 @@
 using UnityEngine;
 
-public class PedalInput : MonoBehaviour
+public class PedalInput : RidgitBodyPedalSubject
 {
     private LogitechGSDK.DIJOYSTATE2ENGINES rec;
+
+    public float MaxPedalValue = 100;
+
+    public float MinPedalValue = 0;
 
     [SerializeField]
     private float GasPedalValue;
@@ -23,14 +27,14 @@ public class PedalInput : MonoBehaviour
 
     public void SetPedalInput()
     {
-        GasPedalValue = NormalizeRawInput(rec.Gaspedal);
-        BreakPedalValue = NormalizeRawInput(rec.BreakPedal);
+        OnGasPedal(GasPedalValue = NormalizeRawInput(rec.Gaspedal));
+        OnBreakPedal(BreakPedalValue = NormalizeRawInput(rec.BreakPedal));
         /*ClutchPedalValue = NormalizeRawInput(rec.ClutchPedal);*/
     }
 
     public float NormalizeRawInput(int rawValue)
     {
-        return Mathf.InverseLerp(-32768, 32767, rawValue);
+        return Mathf.Lerp(MaxPedalValue, MinPedalValue, Mathf.InverseLerp(-32768, 32767, rawValue));
     }
 }
 

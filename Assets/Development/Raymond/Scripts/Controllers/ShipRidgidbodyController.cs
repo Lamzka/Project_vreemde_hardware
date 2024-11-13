@@ -1,33 +1,37 @@
 using UnityEngine;
 
-public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
+public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons, IRidgidBodyPedals
 {
 
-    [SerializeField]
-    private Rigidbody ridgidBody;
+    //ridigboy component of the ship
+    [SerializeField] private Rigidbody ridgidBody;
 
-    [SerializeField]
-    private bool isUsingGravity;
+    //if the ridgidbody is using gravity or not
+    [SerializeField] private bool isUsingGravity;
 
-    [SerializeField]
-    private float hightForce;
+    //the force that will be applied to the ridigbody according to the action
+    [SerializeField] private float maxMovementForce;
+    [SerializeField] private float hightForce;
 
-    [SerializeField]
-    private float ForceSmoothing;
+    //the smoothing that will apply to the force so there is no sudden change in movement
+    [SerializeField] private float hightForceSmoothing;
 
     void Start()
     {
         ridgidBody = GetComponent<Rigidbody>();
+
     }
 
     private void OnEnable()
     {
         GetComponent<RidgitbodyButtonSubject>().SetListeners(this);
+        GetComponent<RidgitBodyPedalSubject>().SetListeners(this);
     }
 
     private void OnDisable()
     {
         GetComponent<RidgitbodyButtonSubject>().RemoveListeners(this);
+        GetComponent<RidgitBodyPedalSubject>().RemoveListeners(this);
     }
 
     public void OnNotify(int Button)
@@ -65,15 +69,34 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
                 //Gear6
                 break;
             case 18: //Shifter Reverse Gear
-                //reverse
+                Backward(Button);
                 break;
         }
+    }
+
+    public void OnGasPedal(float GasValue)
+    {
+        Forward(GasValue);
+    }
+
+    public void OnBreakPedal(float BreakValue)
+    {
+        Break(BreakValue);
     }
 
 
     private void Forward(float intensity)
     {
+        if (!isUsingGravity)
+        {
+            float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, maxMovementForce, intensity * Time.deltaTime);
+            ridgidBody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Force);
+        }
+    }
 
+    private void Break(float intensity)
+    {
+        ridgidBody.drag = intensity;
     }
 
     private void Backward(float intensity)
@@ -87,8 +110,8 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
         if (isUp == 14)
         {
             Debug.Log("Move up");
-            float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, ForceSmoothing * Time.deltaTime);
-            ridgidBody.AddForce(0, AppliedForce, 0, ForceMode.Acceleration);
+            float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
+            ridgidBody.AddRelativeForce(Vector3.up * AppliedForce, ForceMode.Force);
         }
     }
 
@@ -98,23 +121,19 @@ public class ShipRidgidbodyController : MonoBehaviour, IRidgidBodyButtons
         if (isDown == 15)
         {
             Debug.Log("moveDown");
-            float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, ForceSmoothing * Time.deltaTime);
-            ridgidBody.AddForce(0, -AppliedForce, 0, ForceMode.Acceleration);
+            float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
+            ridgidBody.AddRelativeForce(Vector3.down * -AppliedForce, ForceMode.Force);
         }
     }
 
     private void TakeOffOrLand(int isPressed)
     {
-
-
-
-
         if (isPressed == 0 && isUsingGravity)
         {
             Debug.Log("Facebutton 0 pressed");
             isUsingGravity = false;
             ridgidBody.useGravity = isUsingGravity;
-            ridgidBody.AddForce(0, 0.5f, 0, ForceMode.Impulse);
+            ridgidBody.AddRelativeForce(Vector3.up * 1, ForceMode.Force);
 
         }
         else if (isPressed == 0 && !isUsingGravity)
