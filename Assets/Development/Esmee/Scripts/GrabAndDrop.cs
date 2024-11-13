@@ -6,6 +6,7 @@ public class GrabAndDrop : MonoBehaviour
     private bool collected;
     private bool foundPackage;
     private GameObject package; //hij pakt nu altijd deze package
+    private float dropOffset = 2.0f;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class GrabAndDrop : MonoBehaviour
         if (other.gameObject.tag == "package" && foundPackage == true)
         {
             canCollect = true;
-            package = other.gameObject;
+            package = other.gameObject; //dit kan zolang we het erbij houden dat we 1 package steeds uit het 'magazijn' meenemen
             foundPackage = false;
         }
     }
@@ -46,6 +47,7 @@ public class GrabAndDrop : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q) && collected == true)
         {
             package.transform.parent = null;
+            package.transform.position -= transform.forward * dropOffset;
             canCollect = true;
             collected = false;
             foundPackage = true;
