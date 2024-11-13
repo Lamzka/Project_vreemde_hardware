@@ -3,15 +3,23 @@ using UnityEngine;
 public class Package : MonoBehaviour
 {
     public PackageInfo Info;
-    // Start is called before the first frame update
     void Start()
     {
-        Info.Durability = 0; //like het kan op deze manier alleen als elk package dit script heeft werkt dat niet //moet ik 100 aparte scripts maken???
+        if (Info != null && Info.RecieverPlanet.Length > 0)
+        {
+            string randomPlanet = Info.RecieverPlanet[Random.Range(0, Info.RecieverPlanet.Length)];
+            Debug.Log("Random Planet: " + randomPlanet);
+        }
+
+        if (Info != null && Info.RecieverName.Length > 0)
+        {
+            string randomName = Info.RecieverName[Random.Range(0, Info.RecieverName.Length)];
+            Debug.Log("Random Name: " + randomName);
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-
     }
+
 }
