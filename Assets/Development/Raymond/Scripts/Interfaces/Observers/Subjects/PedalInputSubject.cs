@@ -1,16 +1,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RidgitBodyPedalSubject : MonoBehaviour
+public class PedalInputSubject : MonoBehaviour
 {
-    private List<IRidgidBodyPedals> observers = new List<IRidgidBodyPedals>();
+    private List<IPedalInput> observers = new List<IPedalInput>();
 
-    public void SetListeners(IRidgidBodyPedals observer)
+    public void SetListeners(IPedalInput observer)
     {
         observers.Add(observer);
     }
 
-    public void RemoveListeners(IRidgidBodyPedals observer)
+    public void RemoveListeners(IPedalInput observer)
     {
         observers.Remove(observer);
     }
