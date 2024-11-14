@@ -36,6 +36,15 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Pedal"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""aa2d1a28-5856-4537-bece-b429870000d2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -71,6 +80,17 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
                     ""action"": ""Steering Wheel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32255271-d55e-49cf-8579-7966d24ada67"",
+                    ""path"": ""<HID::Logitech G29 Driving Force Racing Wheel>/stick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pedal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -80,6 +100,7 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
         // Wheel
         m_Wheel = asset.FindActionMap("Wheel", throwIfNotFound: true);
         m_Wheel_SteeringWheel = m_Wheel.FindAction("Steering Wheel", throwIfNotFound: true);
+        m_Wheel_Pedal = m_Wheel.FindAction("Pedal", throwIfNotFound: true);
     }
 
     ~@TestingInputSystem()
@@ -147,11 +168,13 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Wheel;
     private List<IWheelActions> m_WheelActionsCallbackInterfaces = new List<IWheelActions>();
     private readonly InputAction m_Wheel_SteeringWheel;
+    private readonly InputAction m_Wheel_Pedal;
     public struct WheelActions
     {
         private @TestingInputSystem m_Wrapper;
         public WheelActions(@TestingInputSystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @SteeringWheel => m_Wrapper.m_Wheel_SteeringWheel;
+        public InputAction @Pedal => m_Wrapper.m_Wheel_Pedal;
         public InputActionMap Get() { return m_Wrapper.m_Wheel; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -164,6 +187,9 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
             @SteeringWheel.started += instance.OnSteeringWheel;
             @SteeringWheel.performed += instance.OnSteeringWheel;
             @SteeringWheel.canceled += instance.OnSteeringWheel;
+            @Pedal.started += instance.OnPedal;
+            @Pedal.performed += instance.OnPedal;
+            @Pedal.canceled += instance.OnPedal;
         }
 
         private void UnregisterCallbacks(IWheelActions instance)
@@ -171,6 +197,9 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
             @SteeringWheel.started -= instance.OnSteeringWheel;
             @SteeringWheel.performed -= instance.OnSteeringWheel;
             @SteeringWheel.canceled -= instance.OnSteeringWheel;
+            @Pedal.started -= instance.OnPedal;
+            @Pedal.performed -= instance.OnPedal;
+            @Pedal.canceled -= instance.OnPedal;
         }
 
         public void RemoveCallbacks(IWheelActions instance)
@@ -191,5 +220,6 @@ public partial class @TestingInputSystem: IInputActionCollection2, IDisposable
     public interface IWheelActions
     {
         void OnSteeringWheel(InputAction.CallbackContext context);
+        void OnPedal(InputAction.CallbackContext context);
     }
 }
