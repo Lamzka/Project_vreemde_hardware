@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c3d1a38c3069a4b86699b8795f72d0, type: 3}
+  m_Name: SmallPackage
+  m_EditorClassIdentifier: 
+  RecieverPlanet:
+  - Exion
+  - Solaris Beta
+  - Starlon
+  - Nexis
+  - Zenothar
+  - Xenora
+  - Zerathos
+  - Aethion
+  - Asteron
+  - Neutronis
+  RecieverName:
+  - Galactic Gizmos Inc.
+  - Stellar Solutions
+  - Meteor Munchies
+  - Cosmic Courier Services
+  - Star Forge Industries
+  - Comet Cleaners
+  - Void Ventures Inc.
+  - Galaxium Goods
+  - Space Specimens Inc.
+  - Ion Industries
+  Durability: 100
+  Earnings: 0
