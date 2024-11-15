@@ -25,7 +25,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     private void OnEnable()
     {
         //Set this class as a listener to the WheelInputSubject
-        GetComponent<WheelInputSubject>().SetListeners(this);
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<WheelInputSubject>().SetListeners(this);
     }
 
     private void OnDisable()
