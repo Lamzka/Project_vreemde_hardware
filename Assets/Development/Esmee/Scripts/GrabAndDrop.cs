@@ -51,7 +51,7 @@ public class GrabAndDrop : MonoBehaviour
             canCollect = true;
             collected = false;
             foundPackage = true;
-            package = null; //hij gaat wel op null maar collide meteen weer opnieuw met de oude package
+            package = null;
         }
     }
 }
