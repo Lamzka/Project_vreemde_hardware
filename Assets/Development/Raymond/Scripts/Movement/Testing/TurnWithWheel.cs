@@ -1,48 +1,66 @@
 using UnityEngine;
 
-public class TurnWithWheel : MonoBehaviour
+public class TurnWithWheel : MonoBehaviour, IWheelInput
 {
-    private SteeringWheelInput steeringWheelInput;
+
+    //Settings that will be applied to the ridgidbody
+    [Header("RidgidBody Settings")]
+    public float maxAngularVelocity = 30;
+    public float Torque = 1f;
+
+    //Force's that will be applied to the steering wheel pasively (Recomend only changing these values in the editor)
+    [Header("SteeringWheel SpringForce settings")]
+    public int offset = 0;
+    public int saturation = 0;
+    public int coefficient = 0;
 
 
-    public float MaxSteeringValue = 90;
-    public float MinSteeringValue = -90;
-
-    public bool PedalIsPressed;
-    public float Smoothing = 5f;
-
-    private Transform Object;
-    private float NormalizedInput;
+    private Rigidbody ridgidBody;
 
     private void Start()
     {
-        steeringWheelInput = GetComponent<SteeringWheelInput>();
+        ridgidBody = GetComponent<Rigidbody>();
     }
 
+    private void OnEnable()
+    {
+        //Set this class as a listener to the WheelInputSubject
+        GetComponent<WheelInputSubject>().SetListeners(this);
+    }
+
+    private void OnDisable()
+    {
+        //remove this class as a listener to the WheelInputSubject
+        GetComponent<WheelInputSubject>().RemoveListeners(this);
+    }
 
     private void Update()
     {
-        Object = this.transform;
-        NormalizedInput = Mathf.Lerp(MinSteeringValue, MaxSteeringValue, Mathf.InverseLerp(-360, 360, steeringWheelInput.steeringInput));
-        Rotate();
+        //Set the maxAngularVelocity of the ridgidbody to declared variable
+        ridgidBody.maxAngularVelocity = maxAngularVelocity;
 
+        //Update the LogitechGSDK's InputManager
+        LogitechGSDK.LogiUpdate();
+
+        ApplyPasiveForceFeedback();
     }
 
-    private void Rotate()
+    //Called by the WheelInputSubject to update the steering wheel input
+    public void OnWheelInput(float input)
     {
+        Rotate(input);
+    }
 
+    //Rotate the ridgidbody according to the input
+    private void Rotate(float NormalizedInput)
+    {
+        ridgidBody.AddRelativeTorque(Vector3.up * Torque * NormalizedInput, ForceMode.Force);
+    }
 
-
-
-        if (PedalIsPressed)
-        {
-            Object.rotation = Quaternion.Slerp(Object.rotation, Quaternion.Euler(NormalizedInput, 0, 0), Time.deltaTime * Smoothing);
-
-        }
-        else
-        {
-            Object.rotation = Quaternion.Slerp(Object.rotation, Quaternion.Euler(0, NormalizedInput, 0), Time.deltaTime * Smoothing);
-        }
+    //Apply the passive force feedback to the steering wheel
+    private void ApplyPasiveForceFeedback()
+    {
+        LogitechGSDK.LogiPlaySpringForce(0, offset, saturation, coefficient);
     }
 
 }
