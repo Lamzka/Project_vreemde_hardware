@@ -12,6 +12,6 @@ public class UiButtons : MonoBehaviour
 
    public void StartButton()
     {
-        SceneManager.LoadScene("Ending");
+        SceneManager.LoadScene("MainScene");
     }
 }
