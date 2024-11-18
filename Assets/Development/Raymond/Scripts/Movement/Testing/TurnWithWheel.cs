@@ -40,7 +40,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     private void Update()
     {
         //Set the maxAngularVelocity of the ridgidbody to declared variable
-        rigidbody.maxAngularVelocity = m_maxAngularVelocity;
+
 
         //Update the LogitechGSDK's InputManager
         LogitechGSDK.LogiUpdate();
@@ -52,6 +52,8 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 
     void FixedUpdate()
     {
+        rigidbody.maxAngularVelocity = m_maxAngularVelocity;
+
         rigidbody.angularVelocity = Vector3.up * Mathf.Clamp(rigidbody.angularVelocity.y, minTurnSpeed, maxTurnSpeed);
     }
 
