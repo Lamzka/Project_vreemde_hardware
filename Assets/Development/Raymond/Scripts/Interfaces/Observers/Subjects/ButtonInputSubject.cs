@@ -16,8 +16,8 @@ public abstract class ButtonInputSubject : MonoBehaviour
         observers.Remove(observer);
     }
 
-    public void OnNotify(int button)
+    public void OnNotify(int button, bool state)
     {
-        observers.ForEach(observer => observer.OnButton(button));
+        observers.ForEach(observer => observer.OnButton(button, state));
     }
 }
