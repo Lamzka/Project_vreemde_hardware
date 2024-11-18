@@ -4,9 +4,12 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 {
 
     //Settings that will be applied to the ridgidbody
-    [Header("RidgidBody Settings")]
-    public float maxAngularVelocity = 30;
+    [Header("RigidBody Settings")]
+    public float m_maxAngularVelocity = 30;
     public float Torque = 1f;
+
+    [SerializeField] private float minTurnSpeed = -2;
+    [SerializeField] private float maxTurnSpeed = 2;
 
     //Force's that will be applied to the steering wheel pasively (Recomend only changing these values in the editor)
     [Header("SteeringWheel SpringForce settings")]
@@ -15,11 +18,11 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     public int coefficient = 0;
 
 
-    private Rigidbody ridgidBody;
+    private Rigidbody rigidbody;
 
     private void Start()
     {
-        ridgidBody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void OnEnable()
@@ -37,12 +40,19 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     private void Update()
     {
         //Set the maxAngularVelocity of the ridgidbody to declared variable
-        ridgidBody.maxAngularVelocity = maxAngularVelocity;
+        rigidbody.maxAngularVelocity = m_maxAngularVelocity;
 
         //Update the LogitechGSDK's InputManager
         LogitechGSDK.LogiUpdate();
 
         ApplyPasiveForceFeedback();
+
+        Debug.Log(rigidbody.angularVelocity);
+    }
+
+    void FixedUpdate()
+    {
+        rigidbody.angularVelocity = Vector3.up * Mathf.Clamp(rigidbody.angularVelocity.y, minTurnSpeed, maxTurnSpeed);
     }
 
     //Called by the WheelInputSubject to update the steering wheel input
@@ -54,7 +64,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     //Rotate the ridgidbody according to the input
     private void Rotate(float NormalizedInput)
     {
-        ridgidBody.AddRelativeTorque(Vector3.up * Torque * NormalizedInput, ForceMode.Force);
+        rigidbody.AddRelativeTorque(Vector3.up * Torque * NormalizedInput, ForceMode.Force);
     }
 
     //Apply the passive force feedback to the steering wheel
