@@ -1,68 +1,44 @@
 using UnityEngine;
 
-public class SteeringWheelInput : MonoBehaviour
+public class SteeringWheelInput : WheelInputSubject
 {
+    //The boounds set to calculate the normalized input
+    [Header("normalization Bounds")]
     public float MaxSteeringValue = 360;
     public float MinSteeringValue = -360;
 
+    //normalized value of the steering wheel
+    [Header("Current Output")]
+    public float SteeringInput;
+
+    //refrence to the LogitechGSDK's InputManager
     private LogitechGSDK.DIJOYSTATE2ENGINES rec;
-    public LogitechGSDK.LogiControllerPropertiesData properties;
 
-    //SteeringWheel
-    public float steeringInput;
-
-    //Pedals
-    public float gasPedalInput;
-    public float brakePedalInput;
-    /*private int ClutchPedalInput[];*/
-
-
-
-    public void Start()
-    {
-
-
-    }
 
     private void Update()
     {
+        //update the Information from the wheel and the buttons
+        LogitechGSDK.LogiUpdate();
 
+        //returns the state of the controller and stores it in rec
         rec = LogitechGSDK.LogiGetStateUnity(0);
 
-        LogitechGSDK.LogiControllerPropertiesData actualProperties = new LogitechGSDK.LogiControllerPropertiesData();
-        LogitechGSDK.LogiGetCurrentControllerProperties(0, ref actualProperties);
+        //gets and sets a normalized value of the steering wheel
         GetWheelInput();
-        GetPedals();
-        /*GetButtons();*/
-
     }
 
-    void GetWheelInput()
+    //gets and sets a normalized value of the steering wheel
+    private void GetWheelInput()
     {
-        float RawInput;
-        RawInput = rec.SteeringWheel;
-        steeringInput = Mathf.Lerp(MinSteeringValue, MaxSteeringValue, Mathf.InverseLerp(-32768, 32767, RawInput));
+        //gets and sends a normalized value of the steering wheel to the observers
+        OnWheelInput(NormalizeRawInput(rec.SteeringWheel));
     }
 
 
-
-    void GetPedals()
+    //Calculates the normalized input of the SteeringWheel
+    private float NormalizeRawInput(int rawValue)
     {
-        gasPedalInput = rec.Gaspedal;
-        brakePedalInput = rec.BreakPedal;
-        /*ClutchPedalInput = rec.ClutchPedal;*/
+        //Calcutation that normalizes the raw input of the pedals
+        return Mathf.Lerp(MaxSteeringValue, MinSteeringValue, Mathf.InverseLerp(-32768, 32767, rawValue));
     }
-
-    void GetButtons()
-    {
-        for (int i = 0; i < 128; i++)
-        {
-            if (rec.rgbButtons[i] == 128)
-            {
-
-            }
-
-        }
-    }
-
 }

@@ -13,6 +13,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Pedal",
+                    "type": "PassThrough",
+                    "id": "aa2d1a28-5856-4537-bece-b429870000d2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -48,6 +57,17 @@
                     "action": "Steering Wheel",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "32255271-d55e-49cf-8579-7966d24ada67",
+                    "path": "<HID::Logitech G29 Driving Force Racing Wheel>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pedal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }
