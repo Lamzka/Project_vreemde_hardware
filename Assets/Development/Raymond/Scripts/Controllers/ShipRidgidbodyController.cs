@@ -45,7 +45,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
         GameObject.FindGameObjectWithTag("InputManagers").GetComponent<PedalInputSubject>().RemoveListeners(this);
     }
 
-    public void OnButton(int Button)
+    public void OnButton(int Button, bool state)
     {
         switch (Button)
         {
