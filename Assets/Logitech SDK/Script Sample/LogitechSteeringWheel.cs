@@ -1,6 +1,5 @@
-using UnityEngine;
-using System.Collections;
 using System.Text;
+using UnityEngine;
 
 public class LogitechSteeringWheel : MonoBehaviour
 {
@@ -80,14 +79,14 @@ public class LogitechSteeringWheel : MonoBehaviour
             actualState = "Steering wheel current state : \n\n";
             LogitechGSDK.DIJOYSTATE2ENGINES rec;
             rec = LogitechGSDK.LogiGetStateUnity(0);
-            actualState += "x-axis position :" + rec.lX + "\n";
-            actualState += "y-axis position :" + rec.lY + "\n";
-            actualState += "z-axis position :" + rec.lZ + "\n";
-            actualState += "x-axis rotation :" + rec.lRx + "\n";
-            actualState += "y-axis rotation :" + rec.lRy + "\n";
-            actualState += "z-axis rotation :" + rec.lRz + "\n";
-            actualState += "extra axes positions 1 :" + rec.rglSlider[0] + "\n";
-            actualState += "extra axes positions 2 :" + rec.rglSlider[1] + "\n";
+            actualState += "Wheel :" + rec.SteeringWheel + "\n";
+            actualState += "gas pedal :" + rec.Gaspedal + "\n";
+            actualState += "Unknown Y :" + rec.lZ + "\n";
+            actualState += "Unknown X :" + rec.lRx + "\n";
+            actualState += "Second Unkown Y :" + rec.lRy + "\n";
+            actualState += "Break pedal :" + rec.BreakPedal + "\n";
+            actualState += "Clutch :" + rec.ClutchPedal[0] + "\n";
+            actualState += "extra axes positions 2 :" + rec.ClutchPedal[1] + "\n";
             switch (rec.rgdwPOV[0])
             {
                 case (0): actualState += "POV : UP\n"; break;
