@@ -39,6 +39,6 @@ public class SteeringWheelInput : WheelInputSubject
     private float NormalizeRawInput(int rawValue)
     {
         //Calcutation that normalizes the raw input of the pedals
-        return Mathf.Lerp(MaxSteeringValue, MinSteeringValue, Mathf.InverseLerp(-32768, 32767, rawValue));
+        return Mathf.Lerp(MaxSteeringValue, MinSteeringValue, Mathf.InverseLerp(32767, -32768, rawValue));
     }
 }

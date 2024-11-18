@@ -22,6 +22,12 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     }
 
+    private void Update()
+    {
+        /*  Debug.Log(ridgidBody.velocity);*/
+
+    }
+
     private void OnEnable()
     {
         GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this);
@@ -90,8 +96,10 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     {
         if (!isUsingGravity)
         {
-            float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, maxMovementForce, intensity * Time.deltaTime);
+            float AppliedForce = Mathf.Clamp(ridgidBody.velocity.z, maxMovementForce, intensity * Time.deltaTime);
             ridgidBody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
+
+            Debug.Log("Forward" + AppliedForce);
 
         }
     }
@@ -116,6 +124,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
             float AppliedForce = Mathf.Lerp(ridgidBody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
             ridgidBody.AddRelativeForce(Vector3.up * AppliedForce, ForceMode.Impulse);
             ridgidBody.velocity = Vector3.up * AppliedForce;
+
         }
     }
 
@@ -139,7 +148,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
             isUsingGravity = false;
             ridgidBody.useGravity = isUsingGravity;
 
-            ridgidBody.AddRelativeForce(Vector3.up * 1, ForceMode.Impulse);
+            /*ridgidBody.AddRelativeForce(Vector3.up * 1, ForceMode.Impulse);*/
 
 
         }
