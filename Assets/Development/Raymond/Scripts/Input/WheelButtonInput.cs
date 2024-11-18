@@ -27,29 +27,37 @@ public class WheelButtonInput : ButtonInputSubject
         UpdateButtonStates();
     }
 
+
+
     //checks if there is a button is pressed on the current frame
     void UpdateButtonStates()
     {
-        timer++;
+        bool IsHeld = false;
+
+        bool isPressed;
 
         //Forloop to check each button
         for (int i = 0; i < buttonStates.Count; i++)
         {
-            //if a button is pressed the bool isPressed will be set to true
-            bool isPressed = LogitechGSDK.LogiButtonIsPressed(0, i);
 
-            //if a button is pressed it will set its corrosponding index in the list to true
-            buttonStates[i] = isPressed;
-
-            //if a button is pressed and the timer is greater than 60 it will notify the observers
-            if (isPressed && timer > 60)
+            if (LogitechGSDK.LogiButtonIsPressed(0, i) == true && IsHeld == false)
             {
-                //Notify the observers
-                OnNotify(i);
+                IsHeld = true;
+                isPressed = true;
+                buttonStates[i] = isPressed;
+                OnNotify(i, isPressed);
 
-                //reset the timer
-                timer = 0;
             }
+            else if (LogitechGSDK.LogiButtonReleased(0, i) == false && IsHeld == true)
+            {
+                IsHeld = false;
+                isPressed = false;
+                buttonStates[i] = isPressed;
+                OnNotify(i, isPressed);
+            }
+
+
+
         }
     }
 
