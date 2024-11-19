@@ -2,28 +2,43 @@ using UnityEngine;
 
 public class GrabAndDrop : MonoBehaviour, IButtonInput
 {
-    //and integer corosponding to the button that will be used to pick up and drop the package
-    public int ButtonIndex = 1;
 
-    [SerializeField] private bool isCollected;
-    [SerializeField] private bool canCollect;
+    public int ButtonIndex = 1; //integer corosponding to the button that will be used to pick up and drop the package
+
+    [SerializeField] private bool isCollected; //if a package collected by the ship
+    [SerializeField] private bool canCollect; //if the ship can collect a package
+
+    [SerializeField] private float followSpeed = 10.0f; //speed at which the package follows the ship
+    [SerializeField] private float packageDrag = 5f; //drag on the package
+    [SerializeField] private float packageDampening = 0.5f; //dampening on the package movenent 
+
 
     private GameObject package; //hij pakt nu altijd deze package
 
-    private float dropOffset = 2.0f;
+    private Rigidbody packageRigidbody;
+
+    private float dropOffset = 2.0f; //offset from the ship where the package will be dropped
 
     void Start()
     {
         canCollect = false;
         isCollected = false;
-
     }
 
-    void Update()
+    void OnEnable()
     {
-        /*PackageCollecting();*/
-        /*  Debug.Log(isCollected);
-          Debug.Log(canCollect);*/
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this); //Set this class as a listener to the ButtonInputSubject
+    }
+
+    void OnDisable()
+    {
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this); //remove this class as a listener to the ButtonInputSubject
+    }
+
+    private void FixedUpdate()
+    {
+        if (isCollected) //if a package is collected by the ship make it follow the ship
+            PackageFollowShip();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -32,39 +47,65 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
         {
             canCollect = true;
 
-            //dit kan zolang we het erbij houden dat we 1 package steeds uit het 'magazijn' meenemen
-            package = other.gameObject;
+            package = other.gameObject; //dit kan zolang we het erbij houden dat we 1 package steeds uit het 'magazijn' meenemen
+
+            packageRigidbody = other.GetComponent<Rigidbody>();
 
         }
     }
 
-    public void OnButton(int button, bool state)
+    public void OnButton(int button, bool state) //this function is called by the ButtonInputSubject, it returns the value of the button that is pressed
     {
         PackageCollecting(button, state);
     }
 
+
+
+    private void Update() //testing function to simulate the button press
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            PackageCollecting(ButtonIndex, true);
+        }
+    }
+
+
     private void PackageCollecting(int button, bool state)
     {
-        if (button == ButtonIndex && canCollect == true && isCollected == false)
+        if (button == ButtonIndex && state == true && canCollect == true && isCollected == false) //if the button is pressed and the ship can collect a package and the ship has not collected a package yet
         {
+
             canCollect = false;
 
-            package.transform.position = transform.position;
-            package.transform.parent = transform;
+            packageRigidbody.useGravity = false;
 
             isCollected = true;
         }
-
-
-        if (button == ButtonIndex && canCollect == false && isCollected == true)
+        else if (button == ButtonIndex && state == true && canCollect == false && isCollected == true) //if the button is pressed and the ship can not collect a package and the ship has collected a package
         {
             isCollected = false;
 
-            package.transform.parent = null;
-            package.transform.position -= transform.forward * dropOffset;
+            packageRigidbody.useGravity = true;
 
             canCollect = true;
+
+            //Reset Package value's
             package = null;
+            packageRigidbody = null;
         }
+    }
+
+
+    private void PackageFollowShip() //function to make the package follow the ship
+    {
+        Vector3 targetPosition = transform.position + transform.forward * dropOffset - package.transform.position; //Calculate the position the package should be at
+
+        Vector3 force = (targetPosition * followSpeed) - (packageRigidbody.velocity * packageDampening); //Calculate the force that should be applied to the package to get to the target position
+
+
+        packageRigidbody.velocity = Vector3.Lerp(packageRigidbody.velocity, Vector3.zero, packageDrag * Time.fixedDeltaTime); //Apply drag to the package
+
+        packageRigidbody.AddForce(force, ForceMode.Impulse);//Apply the force to the package
+        packageRigidbody.MoveRotation(transform.rotation); //Make sure the package is always facing the same direction as the ship
     }
 }
