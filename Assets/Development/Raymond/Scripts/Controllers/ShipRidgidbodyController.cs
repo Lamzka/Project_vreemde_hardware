@@ -19,6 +19,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float minSpeed = 10;
     [SerializeField] private float maxSpeed = 100;
 
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -150,20 +151,19 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     private void TakeOffOrLand(int isPressed)
     {
+        rigidbody.useGravity = isUsingGravity;
+
         if (isPressed == 0 && isUsingGravity)
         {
             Debug.Log("Facebutton 0 pressed");
             isUsingGravity = false;
-            rigidbody.useGravity = isUsingGravity;
 
             /*ridgidBody.AddRelativeForce(Vector3.up * 1, ForceMode.Impulse);*/
-
-
         }
+
         else if (isPressed == 0 && !isUsingGravity)
         {
             isUsingGravity = true;
-            rigidbody.useGravity = isUsingGravity;
         }
     }
 
