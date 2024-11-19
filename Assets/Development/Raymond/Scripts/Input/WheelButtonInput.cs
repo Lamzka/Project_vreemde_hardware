@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 public class WheelButtonInput : ButtonInputSubject
 {
 
@@ -37,8 +36,19 @@ public class WheelButtonInput : ButtonInputSubject
         {
             bool isPressed = LogitechGSDK.LogiButtonIsPressed(0, i);
 
-
+            if (isPressed && !buttonStates[i])
+            {
+                buttonStates[i] = true;
+                OnNotify(i, true);
+            }
+            else if (!isPressed && buttonStates[i])
+            {
+                buttonStates[i] = false;
+                OnNotify(i, false);
+            }
         }
-    }
 
+    }
 }
+
+
