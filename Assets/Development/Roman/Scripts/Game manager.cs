@@ -25,6 +25,7 @@ public class Gamemanager : MonoBehaviour
     private void SetMarker()
     {
         destinationMarker.transform.position = planets[Random.Range(0, planets.Length)].position;
+        pickedUpPackage = false;
     }
 
     private void DropofCheck()
