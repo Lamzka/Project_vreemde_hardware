@@ -18,12 +18,14 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
         isCollected = false;
 
     }
-
-    void Update()
+    void OnEnable()
     {
-        /*PackageCollecting();*/
-        /*  Debug.Log(isCollected);
-          Debug.Log(canCollect);*/
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this);
+    }
+
+    void OnDisable()
+    {
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,7 +47,8 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
 
     private void PackageCollecting(int button, bool state)
     {
-        if (button == ButtonIndex && canCollect == true && isCollected == false)
+
+        if (button == ButtonIndex && state == true && canCollect == true && isCollected == false)
         {
             canCollect = false;
 
@@ -54,9 +57,7 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
 
             isCollected = true;
         }
-
-
-        if (button == ButtonIndex && canCollect == false && isCollected == true)
+        else if (button == ButtonIndex && state == true && canCollect == false && isCollected == true)
         {
             isCollected = false;
 
@@ -66,5 +67,7 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
             canCollect = true;
             package = null;
         }
+
+        Debug.Log("Check has been ran");
     }
 }
