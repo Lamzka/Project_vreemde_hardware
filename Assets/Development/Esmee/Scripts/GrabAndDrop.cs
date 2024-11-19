@@ -22,8 +22,8 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
     void Update()
     {
         /*PackageCollecting();*/
-        Debug.Log(isCollected);
-        Debug.Log(canCollect);
+        /*  Debug.Log(isCollected);
+          Debug.Log(canCollect);*/
     }
 
     private void OnTriggerEnter(Collider other)
