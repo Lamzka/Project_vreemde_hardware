@@ -10,7 +10,10 @@ public class Fueldepletion : MonoBehaviour
 
     void Update()
     {
-        Fuel -= Time.deltaTime;
+        if (Fuel >= 0)
+        {
+            Fuel -= Time.deltaTime;
+        }
 
         fuelText.text = Fuel.ToString();
     }
