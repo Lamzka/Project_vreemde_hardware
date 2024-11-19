@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-
 public class WheelButtonInput : ButtonInputSubject
 {
 
@@ -27,30 +26,29 @@ public class WheelButtonInput : ButtonInputSubject
         UpdateButtonStates();
     }
 
+
+
     //checks if there is a button is pressed on the current frame
     void UpdateButtonStates()
     {
-        timer++;
-
         //Forloop to check each button
         for (int i = 0; i < buttonStates.Count; i++)
         {
-            //if a button is pressed the bool isPressed will be set to true
             bool isPressed = LogitechGSDK.LogiButtonIsPressed(0, i);
 
-            //if a button is pressed it will set its corrosponding index in the list to true
-            buttonStates[i] = isPressed;
-
-            //if a button is pressed and the timer is greater than 60 it will notify the observers
-            if (isPressed && timer > 60)
+            if (isPressed && !buttonStates[i])
             {
-                //Notify the observers
-                OnNotify(i);
-
-                //reset the timer
-                timer = 0;
+                buttonStates[i] = true;
+                OnNotify(i, true);
+            }
+            else if (!isPressed && buttonStates[i])
+            {
+                buttonStates[i] = false;
+                OnNotify(i, false);
             }
         }
-    }
 
+    }
 }
+
+

@@ -5,7 +5,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 
     //Settings that will be applied to the ridgidbody
     [Header("RigidBody Settings")]
-    public float m_maxAngularVelocity = 30;
+    public float maxAngularVelocity = 30;
     public float Torque = 1f;
 
     [SerializeField] private float minTurnSpeed = -2;
@@ -13,9 +13,9 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 
     //Force's that will be applied to the steering wheel pasively (Recomend only changing these values in the editor)
     [Header("SteeringWheel SpringForce settings")]
-    public int offset = 0;
-    public int saturation = 0;
-    public int coefficient = 0;
+    public int Offset = 0;
+    public int Saturation = 0;
+    public int Coefficient = 0;
 
 
     private Rigidbody rigidbody;
@@ -40,19 +40,21 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     private void Update()
     {
         //Set the maxAngularVelocity of the ridgidbody to declared variable
-        rigidbody.maxAngularVelocity = m_maxAngularVelocity;
+
 
         //Update the LogitechGSDK's InputManager
         LogitechGSDK.LogiUpdate();
 
         ApplyPasiveForceFeedback();
 
-        Debug.Log(rigidbody.angularVelocity);
+
     }
 
     void FixedUpdate()
     {
-        rigidbody.angularVelocity = Vector3.up * Mathf.Clamp(rigidbody.angularVelocity.y, minTurnSpeed, maxTurnSpeed);
+        rigidbody.maxAngularVelocity = maxAngularVelocity;
+
+        rigidbody.angularVelocity = Vector3.up * Mathf.Clamp(rigidbody.angularVelocity.y, minTurnSpeed, maxTurnSpeed); //max draaisnelheid
     }
 
     //Called by the WheelInputSubject to update the steering wheel input
@@ -70,7 +72,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     //Apply the passive force feedback to the steering wheel
     private void ApplyPasiveForceFeedback()
     {
-        LogitechGSDK.LogiPlaySpringForce(0, offset, saturation, coefficient);
+        LogitechGSDK.LogiPlaySpringForce(0, Offset, Saturation, Coefficient);
     }
 
 }
