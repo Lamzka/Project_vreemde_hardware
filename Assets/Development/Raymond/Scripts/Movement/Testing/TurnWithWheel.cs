@@ -6,10 +6,10 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     //Settings that will be applied to the ridgidbody
     [Header("RigidBody Settings")]
     public float maxAngularVelocity = 30;
-    public float Torque = 1f;
+    public float Torque = 0.5f;
 
     [SerializeField] private float minTurnSpeed = -2;
-    [SerializeField] private float maxTurnSpeed = 2;
+    [SerializeField] private float maxTurnSpeed = 1;
 
     //Force's that will be applied to the steering wheel pasively (Recomend only changing these values in the editor)
     [Header("SteeringWheel SpringForce settings")]
@@ -19,6 +19,9 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 
 
     private Rigidbody rigidbody;
+
+    private const float DeadzoneMin = -5f;
+    private const float DeadzoneMax = 1f;
 
     private void Start()
     {
@@ -63,10 +66,20 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
         Rotate(input);
     }
 
+
+
     //Rotate the ridgidbody according to the input
     private void Rotate(float NormalizedInput)
     {
+        if (NormalizedInput > DeadzoneMin && NormalizedInput < DeadzoneMax)
+        {
+            NormalizedInput = 0f;
+        }
+
         rigidbody.AddRelativeTorque(Vector3.up * Torque * NormalizedInput, ForceMode.Force);
+        // Debug.Log("Wheel Input: " + NormalizedInput);
+
+
     }
 
     //Apply the passive force feedback to the steering wheel

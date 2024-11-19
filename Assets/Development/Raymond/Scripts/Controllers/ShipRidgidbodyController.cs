@@ -19,11 +19,13 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float minSpeed = 10;
     [SerializeField] private float maxSpeed = 100;
 
+    private float defaultDrag = 0f;
+
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-
+        rigidbody.drag = defaultDrag;
     }
 
     private void Update()
@@ -99,23 +101,38 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     private void Forward(float intensity) //iets om gewoon vooruit te gaan
     {
-
-        if (!isUsingGravity)
+        if (intensity > 0 && !isUsingGravity)
         {
-            float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, maxMovementForce, intensity * Time.deltaTime);
+            //if (intensity > 0) //intensity is 100 wanneer ingedrukt
+            // {
+            //float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, maxMovementForce, intensity * Time.deltaTime);
+            //rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
+            //float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, 0, maxMovementForce);
+            //rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
+            float AppliedForce = Mathf.Clamp(intensity, 0, maxMovementForce);
             rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
 
 
-
-            rigidbody.velocity = Vector3.forward * Mathf.Clamp(rigidbody.velocity.z, minSpeed, maxSpeed);
-            Debug.Log(intensity);
+            Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
+            localVelocity.z = Mathf.Clamp(localVelocity.z, minSpeed, maxSpeed);
+            rigidbody.velocity = transform.TransformDirection(localVelocity);
+            //rigidbody.velocity = Vector3.forward * Mathf.Clamp(rigidbody.velocity.z, minSpeed, maxSpeed);
+            // }
 
         }
     }
 
-    private void Break(float intensity) //iets om snel te remmen
+
+    private void Break(float intensity)
     {
-        rigidbody.drag = Mathf.Clamp(40f, 10f, intensity * Time.deltaTime);
+        if (intensity > 0)
+        {
+            rigidbody.drag = Mathf.Clamp(intensity * Time.deltaTime, 3f, 40f);
+        }
+        else
+        {
+            rigidbody.drag = defaultDrag;
+        }
     }
 
     private void Backward(float intensity)
