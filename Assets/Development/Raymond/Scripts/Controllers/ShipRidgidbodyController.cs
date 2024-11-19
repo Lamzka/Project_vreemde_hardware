@@ -97,25 +97,24 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     }
 
 
-    private void Forward(float intensity)
+    private void Forward(float intensity) //iets om gewoon vooruit te gaan
     {
 
         if (!isUsingGravity)
         {
-            float AppliedForce = Mathf.Clamp(rigidbody.velocity.z, maxMovementForce, intensity * Time.deltaTime);
+            float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, maxMovementForce, intensity * Time.deltaTime);
             rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
 
 
 
-            rigidbody.angularVelocity = Vector3.forward * Mathf.Clamp(rigidbody.angularVelocity.z, minSpeed, maxSpeed);
+            rigidbody.velocity = Vector3.forward * Mathf.Clamp(rigidbody.velocity.z, minSpeed, maxSpeed);
             Debug.Log(intensity);
 
         }
     }
 
-    private void Break(float intensity)
+    private void Break(float intensity) //iets om snel te remmen
     {
-
         rigidbody.drag = Mathf.Clamp(40f, 10f, intensity * Time.deltaTime);
     }
 
@@ -139,7 +138,6 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     private void MoveDown(int isDown)
     {
-
         if (isDown == 15)
         {
             Debug.Log("moveDown");
