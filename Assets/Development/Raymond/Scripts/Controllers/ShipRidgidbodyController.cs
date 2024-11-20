@@ -19,13 +19,13 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float minSpeed = 10;
     [SerializeField] private float maxSpeed = 100;
 
-    private float defaultDrag = 0f;
+
 
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.drag = defaultDrag;
+
     }
 
     private void Update()
@@ -53,7 +53,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
         switch (Button)
         {
             case 0: //X button
-                TakeOffOrLand(Button);
+                TakeOffOrLand(Button, state);
                 break;
             case 1: //Square button
                 //button1
@@ -110,7 +110,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
             //float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, 0, maxMovementForce);
             //rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
             float AppliedForce = Mathf.Clamp(intensity, 0, maxMovementForce);
-            rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
+            rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Force);
 
 
             Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
@@ -125,14 +125,14 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     private void Break(float intensity)
     {
-        if (intensity > 0)
+        /*if (intensity > 0)
         {
             rigidbody.drag = Mathf.Clamp(intensity * Time.deltaTime, 3f, 40f);
         }
         else
         {
             rigidbody.drag = defaultDrag;
-        }
+        }*/
     }
 
     private void Backward(float intensity)
@@ -140,35 +140,35 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     }
 
-    private void MoveUp(int isUp)
+    private void MoveUp(int isUp) //set in fixedUpdate
     {
 
         if (isUp == 14)
         {
             Debug.Log("Move up");
             float AppliedForce = Mathf.Lerp(rigidbody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
-            rigidbody.AddRelativeForce(Vector3.up * AppliedForce, ForceMode.Impulse);
+            rigidbody.AddRelativeForce(Vector3.up * AppliedForce, ForceMode.Force);
             rigidbody.velocity = Vector3.up * AppliedForce;
 
         }
     }
 
-    private void MoveDown(int isDown)
+    private void MoveDown(int isDown)// set in fixedupdate
     {
         if (isDown == 15)
         {
             Debug.Log("moveDown");
             float AppliedForce = Mathf.Lerp(rigidbody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
-            rigidbody.AddRelativeForce(Vector3.down * -AppliedForce, ForceMode.Impulse);
+            rigidbody.AddRelativeForce(Vector3.down * -AppliedForce, ForceMode.Force);
             rigidbody.velocity = Vector3.down * AppliedForce;
         }
     }
 
-    private void TakeOffOrLand(int isPressed)
+    private void TakeOffOrLand(int isPressed, bool isButttonPressed)
     {
         rigidbody.useGravity = isUsingGravity;
 
-        if (isPressed == 0 && isUsingGravity)
+        if (isPressed == 0 && isUsingGravity && isButttonPressed == true)
         {
             Debug.Log("Facebutton 0 pressed");
             isUsingGravity = false;
@@ -176,7 +176,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
             /*ridgidBody.AddRelativeForce(Vector3.up * 1, ForceMode.Impulse);*/
         }
 
-        else if (isPressed == 0 && !isUsingGravity)
+        else if (isPressed == 0 && !isUsingGravity && isButttonPressed == true)
         {
             isUsingGravity = true;
         }
