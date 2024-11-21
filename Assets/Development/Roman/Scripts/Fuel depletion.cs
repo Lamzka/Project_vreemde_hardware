@@ -2,17 +2,28 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
-public class Fueldepletion : MonoBehaviour
+public class Fueldepletion : MonoBehaviour, IButtonInput
 {
     [SerializeField] private TMP_Text fuelText;
     [SerializeField] private GameObject sosCanvas;
-    public float Fuel;
 
     [SerializeField] private GameObject bigShip;
-    public bool xButtonPressed;
-
     [SerializeField] private GameObject sphere;
 
+    [SerializeField] private bool xButtonPressed;
+
+    public float Fuel;
+    //private int buttonIndex = 0;
+
+    void OnEnable()
+    {
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this); //Set this class as a listener to the ButtonInputSubject
+    }
+
+    void OnDisable()
+    {
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this); //remove this class as a listener to the ButtonInputSubject
+    }
 
     void Update()
     {
@@ -35,11 +46,15 @@ public class Fueldepletion : MonoBehaviour
         if (Fuel <= 0.01)
         {
             sosCanvas.SetActive(true);
-            if (xButtonPressed)
-            {
-                StartCoroutine(FadeIn());
-                StartCoroutine(WaitASec());
-            }
+        }
+    }
+
+    private void PressedX(int button)
+    {
+        if (button == 0)
+        {
+            StartCoroutine(FadeIn());
+            StartCoroutine(WaitASec());
         }
     }
 
@@ -67,11 +82,15 @@ public class Fueldepletion : MonoBehaviour
 
     IEnumerator WaitASec()
     {
-        sosCanvas.SetActive(false);
         yield return new WaitForSeconds(1.5f);
         transform.position = bigShip.transform.position;
         StartCoroutine(FadeOut());
         Fuel = 100;
+        sosCanvas.SetActive(false);
     }
 
+    public void OnButton(int button, bool state)
+    {
+        PressedX(button);
+    }
 }
