@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -7,12 +8,18 @@ public class Fueldepletion : MonoBehaviour
     [SerializeField] private GameObject sosCanvas;
     public float Fuel;
 
+    [SerializeField] private GameObject bigShip;
+    public bool xButtonPressed;
+
+    [SerializeField] private GameObject sphere;
+
+
     void Update()
     {
-        fuelDropping();
+        FuelDropping();
     }
 
-    private void fuelDropping()
+    private void FuelDropping()
     {
         if (Fuel >= 0)
         {
@@ -20,19 +27,51 @@ public class Fueldepletion : MonoBehaviour
         }
 
         fuelText.text = Fuel.ToString("F0") + "%";
-        noFuelLeft();
+        NoFuelLeft();
     }
 
-    private void noFuelLeft()
+    private void NoFuelLeft()
     {
         if (Fuel <= 0.01)
         {
-            Fuel = 0;
             sosCanvas.SetActive(true);
-            //returning to base in 3..2..1..
-            //tp naar bigshipinc
-            //verlies geld door package damage?
-            //ga verder
+            if (xButtonPressed)
+            {
+                StartCoroutine(FadeIn());
+                StartCoroutine(WaitASec());
+            }
         }
     }
+
+    IEnumerator FadeIn()
+    {
+        Renderer rend = sphere.transform.GetComponent<Renderer>();
+
+        for (float i = 0; i <= 1; i += Time.deltaTime)
+        {
+            rend.material.color = new Color(0, 0, 0, i);
+            yield return null;
+        }
+    }
+
+    IEnumerator FadeOut()
+    {
+        Renderer rend = sphere.transform.GetComponent<Renderer>();
+
+        for (float i = 1; i >= 0; i -= Time.deltaTime)
+        {
+            rend.material.color = new Color(0, 0, 0, i);
+            yield return null;
+        }
+    }
+
+    IEnumerator WaitASec()
+    {
+        sosCanvas.SetActive(false);
+        yield return new WaitForSeconds(1.5f);
+        transform.position = bigShip.transform.position;
+        StartCoroutine(FadeOut());
+        Fuel = 100;
+    }
+
 }
