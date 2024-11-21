@@ -636,7 +636,7 @@ PrefabInstance:
     - target: {fileID: 9001099753963956435, guid: 98382265719569441b4c19c4966b5f78,
         type: 3}
       propertyPath: m_Drag
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9001099753963956435, guid: 98382265719569441b4c19c4966b5f78,
         type: 3}
