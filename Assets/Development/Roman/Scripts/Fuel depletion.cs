@@ -10,19 +10,16 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
     [SerializeField] private GameObject bigShip;
     [SerializeField] private GameObject sphere;
 
-    [SerializeField] private bool xButtonPressed;
-
     public float Fuel;
-    //private int buttonIndex = 0;
 
     void OnEnable()
     {
-        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this); //Set this class as a listener to the ButtonInputSubject
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this); //input
     }
 
     void OnDisable()
     {
-        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this); //remove this class as a listener to the ButtonInputSubject
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this); //input
     }
 
     void Update()
@@ -30,7 +27,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         FuelDropping();
     }
 
-    private void FuelDropping()
+    private void FuelDropping() //makes the fuel drop with 1% every second, and show it with tmp
     {
         if (Fuel >= 0)
         {
@@ -49,7 +46,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         }
     }
 
-    private void PressedX(int button)
+    private void PressedX(int button) //when button pressed the fade in and timer start
     {
         if (button == 0)
         {
@@ -58,7 +55,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         }
     }
 
-    IEnumerator FadeIn()
+    IEnumerator FadeIn() //makes the inside sphere black 
     {
         Renderer rend = sphere.transform.GetComponent<Renderer>();
 
@@ -69,7 +66,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         }
     }
 
-    IEnumerator FadeOut()
+    IEnumerator FadeOut() //makes the inside sphere transparant
     {
         Renderer rend = sphere.transform.GetComponent<Renderer>();
 
@@ -80,7 +77,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         }
     }
 
-    IEnumerator WaitASec()
+    IEnumerator WaitASec() //a small timer before the rest happens
     {
         yield return new WaitForSeconds(1.5f);
         transform.position = bigShip.transform.position;
@@ -89,7 +86,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         sosCanvas.SetActive(false);
     }
 
-    public void OnButton(int button, bool state)
+    public void OnButton(int button, bool state) //input
     {
         PressedX(button);
     }
