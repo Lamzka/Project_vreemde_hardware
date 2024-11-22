@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RotateUpNDown : MonoBehaviour, IButtonInput
@@ -7,11 +5,9 @@ public class RotateUpNDown : MonoBehaviour, IButtonInput
     public Rigidbody rigidbody;
 
     private LogitechGSDK.DIJOYSTATE2ENGINES rec;
-    private float speed = 5;
 
-    [SerializeField] private float hightForceSmoothing;
+    [SerializeField] private float speed = 1;
 
-    [SerializeField] private float hightForce;
 
     private float rotationValue;
 
@@ -40,13 +36,13 @@ public class RotateUpNDown : MonoBehaviour, IButtonInput
             case (12, true):
                 RotateUp(Button);
                 break;
-            case (13,true):
+            case (13, true):
                 RotateDown(Button);
                 break;
-            case (12,false):
+            case (12, false):
                 ResetRotation();
                 break;
-            case (13,false):
+            case (13, false):
                 ResetRotation();
                 break;
 
@@ -59,7 +55,7 @@ public class RotateUpNDown : MonoBehaviour, IButtonInput
         if (isUp == 12)
         {
             Debug.Log("Move up");
-            rotationValue = 1;
+            rotationValue = 0.1f;
 
         }
     }
@@ -69,7 +65,7 @@ public class RotateUpNDown : MonoBehaviour, IButtonInput
         if (isDown == 13)
         {
             Debug.Log("moveDown");
-            rotationValue = -1;
+            rotationValue = -0.1f;
         }
     }
 

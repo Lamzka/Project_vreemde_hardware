@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
@@ -21,7 +19,7 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
         rigidbody.angularVelocity = Vector3.forward * Mathf.Clamp(rigidbody.angularVelocity.z, minTurnSpeed, maxTurnSpeed);
     }
 
-    public void OnButton(int Button , bool state)
+    public void OnButton(int Button, bool state)
     {
         switch (Button)
         {

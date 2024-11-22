@@ -145,15 +145,15 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
         {
             default:
                 forceDirection = Vector3.zero;
-                Debug.Log("No button pressed");
+
                 break;
             case (14, true):
                 forceDirection = Vector3.up;
-                Debug.Log("Button 14 pressed");
+
                 break;
             case (15, true):
                 forceDirection = Vector3.down;
-                Debug.Log("Button 15 pressed");
+
                 break;
         }
 

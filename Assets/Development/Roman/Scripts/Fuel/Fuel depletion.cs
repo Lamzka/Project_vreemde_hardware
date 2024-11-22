@@ -48,7 +48,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
 
     private void PressedX(int button) //when button pressed the fade in and timer start
     {
-        if (button == 0)
+        if (button == 0 && Fuel < 1)
         {
             StartCoroutine(FadeIn());
             StartCoroutine(WaitASec());
