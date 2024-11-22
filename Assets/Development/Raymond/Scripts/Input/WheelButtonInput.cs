@@ -3,7 +3,7 @@ public class WheelButtonInput : ButtonInputSubject
 {
 
     //List with bools for each button on the wheel
-    public List<bool> buttonStates = new List<bool>(new bool[128]);
+    public List<bool> ButtonStates = new List<bool>(new bool[128]);
 
     //Is a button being pressed?
     bool isBeingPressed = false;
@@ -32,18 +32,18 @@ public class WheelButtonInput : ButtonInputSubject
     void UpdateButtonStates()
     {
         //Forloop to check each button
-        for (int i = 0; i < buttonStates.Count; i++)
+        for (int i = 0; i < ButtonStates.Count; i++)
         {
             bool isPressed = LogitechGSDK.LogiButtonIsPressed(0, i);
 
-            if (isPressed && !buttonStates[i])
+            if (isPressed && !ButtonStates[i])
             {
-                buttonStates[i] = true;
+                ButtonStates[i] = true;
                 OnNotify(i, true);
             }
-            else if (!isPressed && buttonStates[i])
+            else if (!isPressed && ButtonStates[i])
             {
-                buttonStates[i] = false;
+                ButtonStates[i] = false;
                 OnNotify(i, false);
             }
         }

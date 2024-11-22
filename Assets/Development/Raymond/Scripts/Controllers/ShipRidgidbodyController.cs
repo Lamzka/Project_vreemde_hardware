@@ -3,15 +3,22 @@ using UnityEngine;
 public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 {
 
-    //ridigboy component of the ship
-    [SerializeField] private Rigidbody rigidbody;
 
-    //if the ridgidbody is using gravity or not
+    [SerializeField] private Rigidbody rigidbody; //ridigboy component of the ship
+
+
     [SerializeField] private bool isUsingGravity;
+
+    [SerializeField] private bool ismovingVerticaly;
+    [SerializeField] private bool isReversed;
+
+    [SerializeField] private int currentShifterGear;
 
     //the force that will be applied to the ridigbody according to the action
     [SerializeField] private float maxMovementForce;
     [SerializeField] private float hightForce;
+
+    [SerializeField] private float maxPedalForce;
 
     //the smoothing that will apply to the force so there is no sudden change in movement
     [SerializeField] private float hightForceSmoothing;
@@ -19,21 +26,11 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float minSpeed = 10;
     [SerializeField] private float maxSpeed = 100;
 
-    private float defaultDrag = 0f;
-
 
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
-        rigidbody.drag = defaultDrag;
     }
-
-    private void Update()
-    {
-        /*  Debug.Log(ridgidBody.velocity);*/
-
-    }
-
 
     private void OnEnable()
     {
@@ -48,49 +45,32 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
         GameObject.FindGameObjectWithTag("InputManagers").GetComponent<PedalInputSubject>().RemoveListeners(this);
     }
 
-    public void OnButton(int Button, bool state)
+    public void OnButton(int button, bool state)
     {
-        switch (Button)
+        switch (button, state)
         {
-            case 0: //X button
-                TakeOffOrLand(Button);
+            case (0, true): TakeOffOrLand(button, state); break;
+
+            case (14, true):
+                currentShifterGear = 14;
+                ismovingVerticaly = true;
                 break;
-            case 1: //Square button
-                //button1
+            case (14, false): ismovingVerticaly = false; break;
+
+            case (15, true):
+                currentShifterGear = 15;
+                ismovingVerticaly = true;
                 break;
-            case 2: //Circle button
-                //button2
-                break;
-            case 3: //Triangle button
-                //button3
-                break;
-            case 12: //Shifter First Gear
-                //Gear1
-                break;
-            case 13: //Shifter Second Gear
-                //Gear2
-                break;
-            case 14: //Shifter Third Gear
-                MoveUp(Button);
-                break;
-            case 15: //Shifter Fourth Gear
-                MoveDown(Button);
-                break;
-            case 16: //Shifter Fifth Gear
-                //Gear5
-                break;
-            case 17: //Shifter Sixth Gear
-                //Gear6
-                break;
-            case 18: //Shifter Reverse Gear
-                Backward(Button);
-                break;
+            case (15, false): ismovingVerticaly = false; break;
+
+            case (18, true): isReversed = true; break;
+            case (18, false): isReversed = false; break;
         }
     }
 
     public void OnGasPedal(float GasValue)
     {
-        Forward(GasValue);
+        HorizontalMovement(GasValue);
     }
 
     public void OnBreakPedal(float BreakValue)
@@ -98,88 +78,98 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
         Break(BreakValue);
     }
 
-
-    private void Forward(float intensity) //iets om gewoon vooruit te gaan
+    private void FixedUpdate()
     {
-        if (intensity > 0 && !isUsingGravity)
+        if (ismovingVerticaly)
+            VerticalMovement(currentShifterGear, ismovingVerticaly);
+
+    }
+
+
+    private void HorizontalMovement(float intensity) //iets om gewoon vooruit te gaan
+    {
+        float AppliedForce = Mathf.Clamp(intensity, 0, maxMovementForce);
+        Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
+        Vector3 forceDirection = Vector3.zero;
+
+        localVelocity.z = Mathf.Clamp(localVelocity.z, minSpeed, maxSpeed);
+
+        switch (isUsingGravity, isReversed, intensity)
         {
-            //if (intensity > 0) //intensity is 100 wanneer ingedrukt
-            // {
-            //float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, maxMovementForce, intensity * Time.deltaTime);
-            //rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
-            //float AppliedForce = Mathf.Clamp(intensity * Time.deltaTime, 0, maxMovementForce);
-            //rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
-            float AppliedForce = Mathf.Clamp(intensity, 0, maxMovementForce);
-            rigidbody.AddRelativeForce(Vector3.forward * AppliedForce, ForceMode.Acceleration);
+
+            case (false, false, 0): rigidbody.drag = 0; break;
+            case (false, true, 0): rigidbody.drag = 0; break;
 
 
-            Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
-            localVelocity.z = Mathf.Clamp(localVelocity.z, minSpeed, maxSpeed);
-            rigidbody.velocity = transform.TransformDirection(localVelocity);
-            //rigidbody.velocity = Vector3.forward * Mathf.Clamp(rigidbody.velocity.z, minSpeed, maxSpeed);
-            // }
+            case (true, false, > 0): // when is using gravity and isnt going in reverse
 
+                break;
+
+            case (false, false, > 0): // when is not using gravity and isnt going in reverse
+                forceDirection = Vector3.forward;
+                rigidbody.drag = 3;
+                break;
+
+            case (true, true, > 0): // when is using gravity and is going in reverse
+
+                break;
+
+            case (false, true, > 0): // when is not using gravity and is going in reverse
+                forceDirection = Vector3.back;
+                rigidbody.drag = 3;
+                break;
         }
+
+        if (intensity > 0)
+        {
+            /*rigidbody.velocity = transform.TransformDirection(localVelocity);*/
+            rigidbody.AddRelativeForce(forceDirection * AppliedForce, ForceMode.Force);
+        }
+
     }
 
 
     private void Break(float intensity)
     {
-        if (intensity > 0)
-        {
-            rigidbody.drag = Mathf.Clamp(intensity * Time.deltaTime, 3f, 40f);
-        }
-        else
-        {
-            rigidbody.drag = defaultDrag;
-        }
+        float pedalForceInput = Mathf.Clamp(intensity, 0, maxPedalForce);
+
+        rigidbody.velocity = Vector3.Lerp(rigidbody.velocity, Vector3.zero, pedalForceInput * Time.deltaTime);
     }
 
-    private void Backward(float intensity)
+    private void VerticalMovement(int button, bool state)
     {
+        float AppliedForce = Mathf.Lerp(rigidbody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
+        Vector3 forceDirection;
 
-    }
-
-    private void MoveUp(int isUp)
-    {
-
-        if (isUp == 14)
+        switch (button, state)
         {
-            Debug.Log("Move up");
-            float AppliedForce = Mathf.Lerp(rigidbody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
-            rigidbody.AddRelativeForce(Vector3.up * AppliedForce, ForceMode.Impulse);
-            rigidbody.velocity = Vector3.up * AppliedForce;
-
+            default:
+                forceDirection = Vector3.zero;
+                Debug.Log("No button pressed");
+                break;
+            case (14, true):
+                forceDirection = Vector3.up;
+                Debug.Log("Button 14 pressed");
+                break;
+            case (15, true):
+                forceDirection = Vector3.down;
+                Debug.Log("Button 15 pressed");
+                break;
         }
+
+        rigidbody.AddRelativeForce(forceDirection * AppliedForce, ForceMode.Force);
     }
 
-    private void MoveDown(int isDown)
+    private void TakeOffOrLand(int button, bool isButttonPressed)
     {
-        if (isDown == 15)
+
+        switch (button, isButttonPressed, isUsingGravity)
         {
-            Debug.Log("moveDown");
-            float AppliedForce = Mathf.Lerp(rigidbody.velocity.y, hightForce, hightForceSmoothing * Time.deltaTime);
-            rigidbody.AddRelativeForce(Vector3.down * -AppliedForce, ForceMode.Impulse);
-            rigidbody.velocity = Vector3.down * AppliedForce;
+            case (0, true, true): isUsingGravity = false; break;
+            case (0, true, false): isUsingGravity = true; break;
         }
-    }
 
-    private void TakeOffOrLand(int isPressed)
-    {
         rigidbody.useGravity = isUsingGravity;
-
-        if (isPressed == 0 && isUsingGravity)
-        {
-            Debug.Log("Facebutton 0 pressed");
-            isUsingGravity = false;
-
-            /*ridgidBody.AddRelativeForce(Vector3.up * 1, ForceMode.Impulse);*/
-        }
-
-        else if (isPressed == 0 && !isUsingGravity)
-        {
-            isUsingGravity = true;
-        }
     }
 
 

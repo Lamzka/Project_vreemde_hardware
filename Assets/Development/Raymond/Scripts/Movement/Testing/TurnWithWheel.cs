@@ -20,8 +20,8 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 
     private Rigidbody rigidbody;
 
-    private const float DeadzoneMin = -5f;
-    private const float DeadzoneMax = 1f;
+    [SerializeField] private const float DeadzoneMin = -1f;
+    [SerializeField] private const float DeadzoneMax = 1f;
 
     private void Start()
     {
@@ -55,7 +55,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
 
     void FixedUpdate()
     {
-        rigidbody.maxAngularVelocity = maxAngularVelocity;
+        /*rigidbody.maxAngularVelocity = maxAngularVelocity;*/
 
         rigidbody.angularVelocity = Vector3.up * Mathf.Clamp(rigidbody.angularVelocity.y, minTurnSpeed, maxTurnSpeed); //max draaisnelheid
     }
