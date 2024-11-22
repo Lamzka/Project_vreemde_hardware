@@ -616,7 +616,12 @@ PrefabInstance:
     - target: {fileID: 4864608462211017718, guid: 98382265719569441b4c19c4966b5f78,
         type: 3}
       propertyPath: hightForce
-      value: 3
+      value: 55
+      objectReference: {fileID: 0}
+    - target: {fileID: 4864608462211017718, guid: 98382265719569441b4c19c4966b5f78,
+        type: 3}
+      propertyPath: maxPedalForce
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4864608462211017718, guid: 98382265719569441b4c19c4966b5f78,
         type: 3}
