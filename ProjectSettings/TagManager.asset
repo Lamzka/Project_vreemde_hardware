@@ -8,6 +8,9 @@ TagManager:
   - package
   - InputManagers
   - ChangeGravityTrigger
+  - QuestList
+  - PackageGrabPoint
+  - DestinationList
   layers:
   - Default
   - TransparentFX
