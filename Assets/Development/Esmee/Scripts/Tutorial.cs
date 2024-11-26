@@ -1,20 +1,18 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Tutorial : MonoBehaviour, IButtonInput
+public class Tutorial : MonoBehaviour
 {
+    [SerializeField] private List<GameObject> sprites = new List<GameObject>();
+    private int currentIndex = -1;
+    //private AudioSource aiVoice;
+
     void Start()
     {
-
-    }
-    void OnEnable()
-    {
-        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this); //input
-    }
-
-    void OnDisable()
-    {
-        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this); //input
+        StartCoroutine(ShowNextImg());
+        //aiVoice = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -22,22 +20,27 @@ public class Tutorial : MonoBehaviour, IButtonInput
 
     }
 
-    IEnumerator WaitSomeTime()
+    IEnumerator ShowNextImg()
     {
-        yield return new WaitForSeconds(2f);
-    }
-
-
-    public void OnButton(int button, bool state) //input
-    {
-        Next(button);
-    }
-
-    private void Next(int button)
-    {
-        if (button == 0)
+        while (currentIndex < sprites.Count)
         {
+            if (currentIndex >= 0 && currentIndex < sprites.Count)
+            {
+                sprites[currentIndex].SetActive(false);
+            }
+
+            currentIndex++;
+
+            if (currentIndex < sprites.Count)
+            {
+                sprites[currentIndex].SetActive(true);
+                //aiVoice.Play();
+            }
+
+            yield return new WaitForSeconds(10);
 
         }
+
+        SceneManager.LoadScene("MainScene");
     }
 }
