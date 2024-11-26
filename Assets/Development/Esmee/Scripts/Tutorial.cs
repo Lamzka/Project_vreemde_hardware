@@ -6,13 +6,12 @@ using UnityEngine.SceneManagement;
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] private List<GameObject> sprites = new List<GameObject>();
+    [SerializeField] private List<AudioClip> aiVoice = new List<AudioClip>();
     private int currentIndex = -1;
-    //private AudioSource aiVoice;
 
     void Start()
     {
         StartCoroutine(ShowNextImg());
-        //aiVoice = gameObject.GetComponent<AudioSource>();
     }
 
     void Update()
