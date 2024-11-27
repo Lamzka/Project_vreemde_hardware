@@ -143,7 +143,7 @@ PrefabInstance:
     - target: {fileID: 7241622289259763893, guid: 08a488bac7c8f8a4e9aec54f7105ddda,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 3.03
       objectReference: {fileID: 0}
     - target: {fileID: 7241622289259763893, guid: 08a488bac7c8f8a4e9aec54f7105ddda,
         type: 3}
@@ -243,10 +243,10 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 16
   m_CollisionDetection: 0
 --- !u!114 &80058734
 MonoBehaviour:
@@ -262,8 +262,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 0}
   isUsingGravity: 1
+  ismovingVerticaly: 0
+  isReversed: 0
+  currentShifterGear: 0
   maxMovementForce: 5
   hightForce: 20
+  maxPedalForce: 0
   hightForceSmoothing: 50
   minSpeed: 10
   maxSpeed: 100
@@ -280,7 +284,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80058732}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4d1ffb0f84561f48a9fa63c2260eb52, type: 3}
   m_Name: 
@@ -893,6 +897,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fuelText: {fileID: 0}
+  sosCanvas: {fileID: 0}
+  bigShip: {fileID: 0}
+  sphere: {fileID: 0}
   Fuel: 100
 --- !u!136 &862410110
 CapsuleCollider:
