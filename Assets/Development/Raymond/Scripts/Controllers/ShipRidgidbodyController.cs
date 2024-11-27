@@ -51,16 +51,19 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
         {
             case (0, true): TakeOffOrLand(button, state); break;
 
+
             case (14, true):
                 currentShifterGear = 14;
                 ismovingVerticaly = true;
                 break;
+
             case (14, false): ismovingVerticaly = false; break;
 
             case (15, true):
                 currentShifterGear = 15;
                 ismovingVerticaly = true;
                 break;
+
             case (15, false): ismovingVerticaly = false; break;
 
             case (18, true): isReversed = true; break;

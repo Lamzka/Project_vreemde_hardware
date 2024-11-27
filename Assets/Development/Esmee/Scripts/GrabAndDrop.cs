@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GrabAndDrop : MonoBehaviour, IButtonInput
+public class GrabAndDrop : QuestInfoSubject, IButtonInput
 {
 
     public int ButtonIndex = 1; //integer corosponding to the button that will be used to pick up and drop the package
@@ -51,6 +51,23 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
 
             packageRigidbody = other.GetComponent<Rigidbody>();
 
+            OnSecurePackage(other.GetComponent<packageInfoHandler>().PackageInfo);
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "package")
+        {
+            canCollect = false;
+
+            package = null; //dit kan zolang we het erbij houden dat we 1 package steeds uit het 'magazijn' meenemen
+
+            packageRigidbody = null;
+
+            OnSecurePackage(null);
+
         }
     }
 
@@ -74,7 +91,6 @@ public class GrabAndDrop : MonoBehaviour, IButtonInput
     {
         if (button == ButtonIndex && state == true && canCollect == true && isCollected == false) //if the button is pressed and the ship can collect a package and the ship has not collected a package yet
         {
-
             canCollect = false;
 
             packageRigidbody.useGravity = false;
