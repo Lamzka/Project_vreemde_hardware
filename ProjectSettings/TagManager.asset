@@ -8,6 +8,7 @@ TagManager:
   - package
   - InputManagers
   - ChangeGravityTrigger
+  - Asteroid
   layers:
   - Default
   - TransparentFX
