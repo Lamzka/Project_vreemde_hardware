@@ -53,7 +53,7 @@ Material:
     - _DstBlend: 10
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _ScanLineIntensity: 0.3
+    - _ScanLineIntensity: 0.1
     - _SrcBlend: 5
     - _Surface: 1
     - _ZTest: 4
