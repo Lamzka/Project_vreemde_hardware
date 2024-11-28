@@ -5,41 +5,45 @@ using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> sprites = new List<GameObject>();
-    [SerializeField] private List<AudioClip> aiVoice = new List<AudioClip>();
-    private int currentIndex = -1;
+    [SerializeField] private List<GameObject> sprites = new List<GameObject>(); //list with all slides
+    [SerializeField] private List<AudioClip> aiVoice = new List<AudioClip>(); //list with all audio clips
+    [SerializeField] private AudioSource audioSrc; //audio source
+    private int currentSlide = 0; //slides start at the first one
 
     void Start()
     {
-        StartCoroutine(ShowNextImg());
+        StartCoroutine(NextSlide());
     }
 
-    void Update()
+    IEnumerator NextSlide()
     {
-
-    }
-
-    IEnumerator ShowNextImg()
-    {
-        while (currentIndex < sprites.Count)
+        for (int i = 0; i < sprites.Count; i++) // Loop through all slides
         {
-            if (currentIndex >= 0 && currentIndex < sprites.Count)
+            if (currentSlide >= 0)
             {
-                sprites[currentIndex].SetActive(false);
+                sprites[currentSlide].SetActive(false); // turn off the last slide
             }
 
-            currentIndex++;
+            currentSlide = i;
+            sprites[currentSlide].SetActive(true); //activate the next slide
 
-            if (currentIndex < sprites.Count)
+            if (i < aiVoice.Count)
             {
-                sprites[currentIndex].SetActive(true);
-                //aiVoice.Play();
+                audioSrc.clip = aiVoice[i];
+                audioSrc.Play(); //start playing audio
+
+                while (audioSrc.isPlaying) //waits until the audio is finished playing
+                {
+                    yield return null;
+                }
             }
 
-            yield return new WaitForSeconds(10);
-
+            yield return new WaitForSeconds(2f); //wait 2 seconds before the next slide
         }
 
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("MainScene"); //load main scene
     }
+
+
+
 }
