@@ -75,7 +75,7 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
             case (5, true):
                 rotationDirection = Vector3.forward;
                 isBeingPressed = true;
-                break;`
+                break;
             case (12, true):
                 rotationDirection = Vector3.right;
                 isBeingPressed = true;
