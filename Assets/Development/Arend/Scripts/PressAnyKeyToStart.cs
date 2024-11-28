@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,6 +20,6 @@ public class PressAnyKeyToStart : MonoBehaviour, IButtonInput
 
     void GoToNextScene(int Button)
     {
-        SceneManager.LoadScene("Ending");
+        SceneManager.LoadScene("TutorialScene");
     }
 }
