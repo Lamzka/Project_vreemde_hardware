@@ -69,7 +69,7 @@ public class SoundRelativeToVelocity : MonoBehaviour
 
     void PlayClip(AudioClip clip)
     {
-        if (/*audioSource.time == audioSource.clip.length ||*/ audioSource.clip == null)
+        if (audioSource.clip == null || audioSource.time == audioSource.clip.length)
         {
             currentClip = clip;
             audioSource.clip = clip;
