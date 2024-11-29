@@ -2,37 +2,97 @@ using UnityEngine;
 
 public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
 {
-    [SerializeField] private float minTurnSpeed;
-    [SerializeField] private float maxTurnSpeed;
+    public float Torque = 0.5f;
+
+    public float SmoothingTime;
 
     private Rigidbody rigidbody;
 
-    public float Torque = 0.5f;
+    [SerializeField] private float maxDrag;
+    [SerializeField] private float minTurnSpeed;
+    [SerializeField] private float maxTurnSpeed;
+
+    private Vector3 rotationDirection;
+
+    private int currenttButton;
+
+    private bool isBeingPressed;
+
+
+
 
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
     }
 
-    void FixedUpdate()
+    private void OnEnable()
     {
-        rigidbody.angularVelocity = Vector3.forward * Mathf.Clamp(rigidbody.angularVelocity.z, minTurnSpeed, maxTurnSpeed);
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().SetListeners(this);
     }
 
-    public void OnButton(int Button, bool state)
+    private void OnDisable()
     {
-        switch (Button)
+        GameObject.FindGameObjectWithTag("InputManagers").GetComponent<ButtonInputSubject>().RemoveListeners(this);
+    }
+
+    void FixedUpdate()
+    {
+
+
+        if (isBeingPressed)
         {
-            case 4:
-                RotateRight();
+            rigidbody.angularVelocity = Vector3.forward * Mathf.Clamp(rotationDirection.z, minTurnSpeed, maxTurnSpeed);
+            RotateRight();
+        }
+        else
+        {
+            rigidbody.angularVelocity = Vector3.Lerp(rigidbody.angularVelocity, Vector3.zero, SmoothingTime * Time.deltaTime);
+        }
+
+
+
+
+    }
+
+    public void OnButton(int button, bool state)
+    {
+        HandleInput(button, state);
+    }
+
+    private void HandleInput(int button, bool state)
+    {
+        switch (button, state)
+        {
+            default:
+                isBeingPressed = false;
+                /*rotationDirection = Vector3.zero;*/
                 break;
-            case 5:
+            case (4, true):
+                rotationDirection = Vector3.back;
+                isBeingPressed = true;
+                break;
+            case (5, true):
+                rotationDirection = Vector3.forward;
+                isBeingPressed = true;
+                break;
+            case (12, true):
+                rotationDirection = Vector3.right;
+                isBeingPressed = true;
+                break;
+            case (13, true):
+                rotationDirection = Vector3.left;
+                isBeingPressed = true;
                 break;
         }
     }
 
     private void RotateRight()
     {
-        rigidbody.AddRelativeTorque(Vector3.up * Torque, ForceMode.Force);
+        /*rigidbody.angularDrag = Mathf.Lerp(maxDrag, 0.5f, SmoothingTime * Time.deltaTime);*/
+        rigidbody.AddRelativeTorque(rotationDirection * Torque, ForceMode.Force);
+
     }
+
+
 }
