@@ -3869,9 +3869,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8804481a6dc8b1241a7374c799a67061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTurnSpeed: 0
-  maxTurnSpeed: 0
-  Torque: 0.5
+  Torque: 1
+  SmoothingTime: 0
+  maxDrag: 0
+  minTurnSpeed: -2
+  maxTurnSpeed: 2
 --- !u!114 &1334861786
 MonoBehaviour:
   m_ObjectHideFlags: 0
