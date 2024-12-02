@@ -5,7 +5,8 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
 
     public int ButtonIndex = 1; //integer corosponding to the button that will be used to pick up and drop the package
 
-    [SerializeField] private bool isCollected; //if a package collected by the ship
+    public bool isCollected; //if a package collected by the ship
+
     [SerializeField] private bool canCollect; //if the ship can collect a package
 
     [SerializeField] private float followSpeed = 10.0f; //speed at which the package follows the ship

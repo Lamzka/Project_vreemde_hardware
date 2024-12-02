@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Starspawning : MonoBehaviour
@@ -10,11 +8,11 @@ public class Starspawning : MonoBehaviour
 
     private void StarSpawning()
     {
-        Vector3 randomPosition = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
-        
+        Vector3 randomPosition = new Vector3(Random.Range(-2000, 2000), Random.Range(-2000, 2000), Random.Range(-2000, 2000));
+
         Instantiate<GameObject>(starPrefab, randomPosition, Quaternion.identity, designatedSpawnArea);
 
-        spawnTimer = 3;
+        spawnTimer = 5;
     }
 
     private void OnTriggerStay(Collider other)
