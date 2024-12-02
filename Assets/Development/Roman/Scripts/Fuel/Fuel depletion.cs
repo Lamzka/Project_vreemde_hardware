@@ -34,6 +34,10 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
             Fuel -= Time.deltaTime;
         }
 
+        if (Fuel >= 100)
+        {
+            Fuel = 100;
+        }
         fuelText.text = Fuel.ToString("F0") + "%";
         NoFuelLeft();
     }
