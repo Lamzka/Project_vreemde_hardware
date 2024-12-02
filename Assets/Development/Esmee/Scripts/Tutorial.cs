@@ -10,7 +10,6 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private AudioSource audioSrc; //audio source
     private int currentSlide = 0; //slides start at the first one
 
-
     private void Start()
     {
         StartCoroutine(NextSlide());
