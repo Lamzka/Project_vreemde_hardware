@@ -8,11 +8,11 @@ public class Starspawning : MonoBehaviour
 
     private void StarSpawning()
     {
-        Vector3 randomPosition = new Vector3(Random.Range(-2000, 2000), Random.Range(-2000, 2000), Random.Range(-2000, 2000));
+        Vector3 randomPosition = new Vector3(Random.Range(-900, 900), Random.Range(-50, 500), Random.Range(-900, 900));
 
         Instantiate<GameObject>(starPrefab, randomPosition, Quaternion.identity, designatedSpawnArea);
 
-        spawnTimer = 5;
+        spawnTimer = 1;
     }
 
     private void OnTriggerStay(Collider other)
