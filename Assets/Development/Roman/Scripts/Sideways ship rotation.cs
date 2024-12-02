@@ -42,8 +42,8 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
 
         if (isBeingPressed)
         {
+            Rotation();
             rigidbody.angularVelocity = Vector3.forward * Mathf.Clamp(rotationDirection.z, minTurnSpeed, maxTurnSpeed);
-            RotateRight();
         }
         else
         {
@@ -66,7 +66,6 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
         {
             default:
                 isBeingPressed = false;
-                /*rotationDirection = Vector3.zero;*/
                 break;
             case (4, true):
                 rotationDirection = Vector3.back;
@@ -75,7 +74,7 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
             case (5, true):
                 rotationDirection = Vector3.forward;
                 isBeingPressed = true;
-                break;`
+                break;
             case (12, true):
                 rotationDirection = Vector3.right;
                 isBeingPressed = true;
@@ -87,9 +86,9 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
         }
     }
 
-    private void RotateRight()
+    private void Rotation()
     {
-        /*rigidbody.angularDrag = Mathf.Lerp(maxDrag, 0.5f, SmoothingTime * Time.deltaTime);*/
+
         rigidbody.AddRelativeTorque(rotationDirection * Torque, ForceMode.Force);
 
     }
