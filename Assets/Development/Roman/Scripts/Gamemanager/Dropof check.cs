@@ -1,16 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class Dropofcheck : MonoBehaviour
 {
     [SerializeField] private TMP_Text correctPlanetText;
     [SerializeField] private Gamemanager gamemanager;
-    private void OnTriggerStay(Collider other)
+
+    [SerializeField] private PackageQuestHandler packageQuestHandler;
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("package"))
         {
+            Destroy(other.gameObject);
+            packageQuestHandler.AddPoint();
+
             correctPlanetText.text = "You deliverd the package to the right planet";
             gamemanager.DeliveredPackage = true;
         }
