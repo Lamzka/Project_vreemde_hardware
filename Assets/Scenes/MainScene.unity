@@ -2213,6 +2213,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Asteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 1633369176487198202, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -392
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633369176487198202, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 1633369176487198202, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 114
+      objectReference: {fileID: 0}
     - target: {fileID: 1656531900683770289, guid: 28fc2e1b64175ce468279d78af6b7f94,
         type: 3}
       propertyPath: m_TagString
@@ -2463,6 +2478,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5706292611491748105, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 113
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706292611491748105, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 39
+      objectReference: {fileID: 0}
     - target: {fileID: 5731886043727132874, guid: 28fc2e1b64175ce468279d78af6b7f94,
         type: 3}
       propertyPath: m_TagString
@@ -2472,6 +2497,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Asteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897676437708118890, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -196
+      objectReference: {fileID: 0}
+    - target: {fileID: 5897676437708118890, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 56
       objectReference: {fileID: 0}
     - target: {fileID: 6016491484202731733, guid: 28fc2e1b64175ce468279d78af6b7f94,
         type: 3}
@@ -2567,6 +2602,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Asteroid
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753935532791152795, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -265
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753935532791152795, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1082
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753935532791152795, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2788.4556
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753935532791152795, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9505182
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753935532791152795, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.31066915
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753935532791152795, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -36.199
       objectReference: {fileID: 0}
     - target: {fileID: 7832000416345084131, guid: 28fc2e1b64175ce468279d78af6b7f94,
         type: 3}
@@ -2667,6 +2732,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536419054589411393, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -129
+      objectReference: {fileID: 0}
+    - target: {fileID: 8536419054589411393, guid: 28fc2e1b64175ce468279d78af6b7f94,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 309
       objectReference: {fileID: 0}
     - target: {fileID: 8553253457454683160, guid: 28fc2e1b64175ce468279d78af6b7f94,
         type: 3}
