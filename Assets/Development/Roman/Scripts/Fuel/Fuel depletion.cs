@@ -10,6 +10,8 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
     [SerializeField] private GameObject bigShip;
     [SerializeField] private GameObject sphere;
 
+    [SerializeField] private Rigidbody rb;
+
     public float Fuel;
 
     void OnEnable()
@@ -47,6 +49,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         if (Fuel <= 0.01)
         {
             sosCanvas.SetActive(true);
+            rb.isKinematic = true;
         }
     }
 
@@ -88,6 +91,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
         StartCoroutine(FadeOut());
         Fuel = 100;
         sosCanvas.SetActive(false);
+        rb.isKinematic = false;
     }
 
     public void OnButton(int button, bool state) //input

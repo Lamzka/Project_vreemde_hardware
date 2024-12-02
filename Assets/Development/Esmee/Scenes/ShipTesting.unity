@@ -1739,8 +1739,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 733953920}
   isUsingGravity: 0
+  ismovingVerticaly: 0
+  isReversed: 0
+  currentShifterGear: 0
   maxMovementForce: 5
   hightForce: 20
+  maxPedalForce: 0
   hightForceSmoothing: 50
   minSpeed: 0
   maxSpeed: 10
@@ -1807,10 +1811,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fuelText: {fileID: 850749863}
   sosCanvas: {fileID: 1198926016}
-  Fuel: 5
   bigShip: {fileID: 1707918919}
-  xButtonPressed: 0
   sphere: {fileID: 1035457767}
+  rb: {fileID: 733953920}
+  Fuel: 5
 --- !u!54 &733953920
 Rigidbody:
   m_ObjectHideFlags: 0
