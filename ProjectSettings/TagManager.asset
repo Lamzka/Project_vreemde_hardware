@@ -12,6 +12,9 @@ TagManager:
   - PackageGrabPoint
   - DestinationList
   - Asteroid
+  - GameManagers
+  - LineRenderer
+  - PlayerShip
   layers:
   - Default
   - TransparentFX
