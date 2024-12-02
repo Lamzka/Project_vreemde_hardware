@@ -10,14 +10,14 @@ public class PackageQuestHandler : MonoBehaviour
 
     private void Start()
     {
-        pakcageCountText.text = "Packages to Deliver: " + PackagesDeliverd;
+        pakcageCountText.text = "Packages to Deliver: " + PackagesDeliverd + "/4";
     }
 
     public void AddPoint()
     {
 
         PackagesDeliverd++;
-        pakcageCountText.text = "Packages to Deliver: " + PackagesDeliverd;
+        pakcageCountText.text = "Packages to Deliver: " + PackagesDeliverd + "/4";
 
         if (PackagesDeliverd >= 4)
         {

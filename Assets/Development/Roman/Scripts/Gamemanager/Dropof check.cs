@@ -8,10 +8,11 @@ public class Dropofcheck : MonoBehaviour
 
     [SerializeField] private PackageQuestHandler packageQuestHandler;
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("package"))
         {
+            Destroy(other.gameObject);
             packageQuestHandler.AddPoint();
 
             correctPlanetText.text = "You deliverd the package to the right planet";
