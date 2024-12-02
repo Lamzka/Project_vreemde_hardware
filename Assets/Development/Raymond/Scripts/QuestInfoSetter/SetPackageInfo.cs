@@ -42,11 +42,16 @@ public class SetPackageInfo : MonoBehaviour, ISendCurrentQuestInfo
 
             DisplayNewInfo(true);
 
+            GameObject.FindGameObjectWithTag("GameManagers").GetComponent<ISetDestinationInfo>().SetDestinationName(null);
+
         }
         else
         {
-            CurrentQuestReciever = packageInfo.RecieverName[Random.Range(0, 10)];
-            CurrentQuestDestination = packageInfo.RecieverPlanet[Random.Range(0, 10)];
+            CurrentQuestReciever = packageInfo.RecieverName[Random.Range(0, packageInfo.RecieverName.Length)];
+            CurrentQuestDestination = packageInfo.RecieverPlanet[Random.Range(0, packageInfo.RecieverPlanet.Length)];
+
+            GameObject.FindGameObjectWithTag("GameManagers").GetComponent<ISetDestinationInfo>().SetDestinationName(CurrentQuestDestination);
+
             DisplayNewInfo(false);
         }
     }

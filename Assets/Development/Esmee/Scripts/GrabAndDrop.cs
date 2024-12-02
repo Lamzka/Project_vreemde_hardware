@@ -52,7 +52,7 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
 
             packageRigidbody = other.GetComponent<Rigidbody>();
 
-            OnSecurePackage(other.GetComponent<packageInfoHandler>().PackageInfo);
+            OnSecurePackage(other.GetComponent<Package>().Info);
 
         }
     }
@@ -68,6 +68,7 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
             packageRigidbody = null;
 
             OnSecurePackage(null);
+            Debug.Log("exit");
 
         }
     }

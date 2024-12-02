@@ -13,7 +13,7 @@ public class Package : MonoBehaviour
     void Start()
     {
         AllPackages();
-        Names();
+        /*Names();*/
     }
 
     void Update()
@@ -38,7 +38,7 @@ public class Package : MonoBehaviour
          }
      }*/
 
-    private void Names()
+    /*private void Names()
     {
         if (Info == null || Info.RecieverPlanet.Length == 0 || Info.RecieverName.Length == 0)
         {
@@ -56,7 +56,7 @@ public class Package : MonoBehaviour
         }
 
         questList.text = nameListBuilder.ToString();
-    }
+    }*/
 }
 
 
