@@ -8,10 +8,15 @@ public class Dropofcheck : MonoBehaviour
 
     [SerializeField] private PackageQuestHandler packageQuestHandler;
 
+
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("package"))
         {
+            GameObject.FindGameObjectWithTag("LineRenderer").SetActive(false);
+
             Destroy(other.gameObject);
             packageQuestHandler.AddPoint();
 

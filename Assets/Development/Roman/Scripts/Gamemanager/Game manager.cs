@@ -1,38 +1,84 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Gamemanager : MonoBehaviour
+public class Gamemanager : MonoBehaviour, ISetDestinationInfo
 {
     [SerializeField] private GameObject[] planets;
     [SerializeField] private GameObject destinationMarker;
     [SerializeField] private GameObject package;
     [SerializeField] private GameObject packagePickupLocation;
     [SerializeField] private GrabAndDrop grabAndDrop;
+    private GameObject LineGuide;
     public bool PickedUpPackage;
     public bool DeliveredPackage;
+    public bool isLineActive;
+    public void SetDestinationName(string DestinationName)
+    {
+        GetPlanet(DestinationName);
+
+    }
+    private void Start()
+    {
+        LineGuide = GameObject.FindGameObjectWithTag("LineRenderer");
+        LineGuide.SetActive(false);
+        isLineActive = false;
+    }
 
     void Update()
     {
-        if (grabAndDrop.isCollected == true)
-        {
-            PickedUpPackage = true;
-        }
-        if (PickedUpPackage)
-        {
-            SetMarker();
-        }
+        if (isLineActive)
+            LineGuide.GetComponent<LineRenderer>().SetPosition(0, GameObject.FindGameObjectWithTag("PlayerShip").transform.position);
 
-        if (DeliveredPackage)
+        /* if (grabAndDrop.isCollected == true)
+         {
+             PickedUpPackage = true;
+         }
+         if (PickedUpPackage)
+         {
+             *//*SetMarker();*//*
+         }
+
+         if (DeliveredPackage)
+         {
+             DeliverdPackage();
+         }*/
+    }
+
+    private void SetMarker(Transform PackageDestination)
+    {
+        if (PackageDestination == null)
         {
-            DeliverdPackage();
+            isLineActive = false;
+            LineGuide.SetActive(false);
+        }
+        else if (PackageDestination != null)
+        {
+
+            destinationMarker.transform.position = PackageDestination.position;
+            LineGuide.SetActive(true);
+            isLineActive = true;
+            LineGuide.GetComponent<LineRenderer>().SetPosition(1, PackageDestination.transform.position);
+            PickedUpPackage = false;
         }
     }
 
-    private void SetMarker()
+    private void GetPlanet(string PackageDestination)
     {
-        destinationMarker.transform.position = planets[Random.Range(0, planets.Length)].transform.position;
-        PickedUpPackage = false;
+
+        if (PackageDestination == null)
+        {
+            SetMarker(null);
+        }
+        else if (PackageDestination != null)
+        {
+            foreach (GameObject planet in planets)
+            {
+                if (planet.name == PackageDestination)
+                {
+                    SetMarker(planet.transform);
+                }
+            }
+        }
+
     }
 
     private void DeliverdPackage()
