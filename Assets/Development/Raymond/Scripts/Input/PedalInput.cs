@@ -10,8 +10,8 @@ public class PedalInput : PedalInputSubject
     public float MinPedalValue = 0;
 
     //Output value of the pedals
-    [SerializeField] private float GasPedalValue;
-    [SerializeField] private float BreakPedalValue;
+    [SerializeField] private float gasPedalValue;
+    [SerializeField] private float breakPedalValue;
 
     // Update is called once per frame
     void Update()
@@ -31,10 +31,10 @@ public class PedalInput : PedalInputSubject
     {
 
         //sets and sends the normalized input of the gas pedal to the observers
-        OnGasPedal(GasPedalValue = NormalizeRawInput(rec.Gaspedal));
+        OnGasPedal(gasPedalValue = NormalizeRawInput(rec.Gaspedal));
 
         //sets and sends the normalized input of the break pedal to the observers
-        OnBreakPedal(BreakPedalValue = NormalizeRawInput(rec.BreakPedal));
+        OnBreakPedal(breakPedalValue = NormalizeRawInput(rec.BreakPedal));
 
         /*ClutchPedalValue = NormalizeRawInput(rec.ClutchPedal);*/
     }
