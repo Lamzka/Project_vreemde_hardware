@@ -21,11 +21,11 @@ public class Tutorial : MonoBehaviour
         {
             if (currentSlide >= 0)
             {
-                sprites[currentSlide].SetActive(false); // turn off the last slide
+                /* sprites[currentSlide].SetActive(false); // turn off the last slide*/
             }
 
-            currentSlide = i;
-            sprites[currentSlide].SetActive(true); //activate the next slide
+            /* currentSlide = i;
+             sprites[currentSlide].SetActive(true);*/ //activate the next slide
 
             if (i < aiVoice.Count)
             {
