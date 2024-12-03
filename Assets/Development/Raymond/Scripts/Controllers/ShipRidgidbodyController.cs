@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 {
-
+    [SerializeField] private GameObject shipLights;
 
     [SerializeField] private Rigidbody rigidbody; //ridigboy component of the ship
 
@@ -168,8 +168,8 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
         switch (button, isButttonPressed, isUsingGravity)
         {
-            case (0, true, true): isUsingGravity = false; break;
-            case (0, true, false): isUsingGravity = true; break;
+            case (0, true, true): isUsingGravity = false; shipLights.SetActive(true); break;
+            case (0, true, false): isUsingGravity = true; shipLights.SetActive(false); break;
         }
 
         rigidbody.useGravity = isUsingGravity;
