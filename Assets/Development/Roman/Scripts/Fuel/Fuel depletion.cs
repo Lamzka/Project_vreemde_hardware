@@ -12,6 +12,8 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
 
     [SerializeField] private Rigidbody rb;
 
+    [SerializeField] private float depleationTimer;
+
     public float Fuel;
 
     void OnEnable()
@@ -33,7 +35,7 @@ public class Fueldepletion : MonoBehaviour, IButtonInput
     {
         if (Fuel >= 0)
         {
-            Fuel -= Time.deltaTime;
+            Fuel -= depleationTimer * Time.deltaTime;
         }
 
         if (Fuel >= 100)

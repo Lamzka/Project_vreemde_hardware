@@ -495,7 +495,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 475905808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6447,7 +6447,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 3
   m_Drag: 0
-  m_AngularDrag: 0
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -6505,6 +6505,7 @@ MonoBehaviour:
   bigShip: {fileID: 475905808}
   sphere: {fileID: 1363708637172313741}
   rb: {fileID: 5728708546911710722}
+  depleationTimer: 0.2
   Fuel: 100
 --- !u!23 &5868757210655210716
 MeshRenderer:
@@ -7318,7 +7319,7 @@ Transform:
   m_GameObject: {fileID: 1587365113927507529}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.058, y: -0.332, z: 2.063}
+  m_LocalPosition: {x: 0.096, y: -0.332, z: 2.396}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8026,8 +8027,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAngularVelocity: 30
   Torque: 3
-  minTurnSpeed: -2
-  maxTurnSpeed: 2
+  minTurnSpeed: -2.5
+  maxTurnSpeed: 2.5
   Offset: 0
   Saturation: 50
   Coefficient: 50
