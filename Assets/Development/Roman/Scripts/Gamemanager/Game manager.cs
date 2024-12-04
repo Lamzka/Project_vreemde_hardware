@@ -8,6 +8,7 @@ public class Gamemanager : MonoBehaviour, ISetDestinationInfo
     [SerializeField] private GameObject packagePickupLocation;
     [SerializeField] private GrabAndDrop grabAndDrop;
     private GameObject LineGuide;
+    private LineRenderer lineRenderer;
     public bool PickedUpPackage;
     public bool DeliveredPackage;
     public bool isLineActive;
@@ -19,6 +20,7 @@ public class Gamemanager : MonoBehaviour, ISetDestinationInfo
     private void Start()
     {
         LineGuide = GameObject.FindGameObjectWithTag("LineRenderer");
+        lineRenderer = GameObject.FindGameObjectWithTag("LineRenderer").GetComponent<LineRenderer>();
         LineGuide.SetActive(false);
         isLineActive = false;
     }
@@ -26,7 +28,11 @@ public class Gamemanager : MonoBehaviour, ISetDestinationInfo
     void Update()
     {
         if (isLineActive)
-            LineGuide.GetComponent<LineRenderer>().SetPosition(0, GameObject.FindGameObjectWithTag("PlayerShip").transform.position);
+            lineRenderer.SetPosition(0, GameObject.FindGameObjectWithTag("LineFollowTransform").transform.position);
+
+
+
+
 
         /* if (grabAndDrop.isCollected == true)
          {
