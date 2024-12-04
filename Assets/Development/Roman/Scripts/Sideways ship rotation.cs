@@ -6,8 +6,7 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
 
     public float SmoothingTime;
 
-    private Rigidbody rigidbody;
-
+    [SerializeField] private Rigidbody rigidbody;
     [SerializeField] private float maxDrag;
     [SerializeField] private float minTurnSpeed;
     [SerializeField] private float maxTurnSpeed;
@@ -16,7 +15,7 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
 
     private int currenttButton;
 
-    private bool isBeingPressed;
+    public bool isBeingPressed;
 
 
 
@@ -76,11 +75,11 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
                 isBeingPressed = true;
                 break;
             case (12, true):
-                rotationDirection = Vector3.right;
+                rotationDirection = Vector3.left;
                 isBeingPressed = true;
                 break;
             case (13, true):
-                rotationDirection = Vector3.left;
+                rotationDirection = Vector3.right;
                 isBeingPressed = true;
                 break;
         }
@@ -89,7 +88,7 @@ public class Sidewaysshiprotation : MonoBehaviour, IButtonInput
     private void Rotation()
     {
 
-        rigidbody.AddRelativeTorque(rotationDirection * Torque, ForceMode.Force);
+        rigidbody.AddRelativeTorque(rotationDirection * Torque, ForceMode.Impulse);
 
     }
 
