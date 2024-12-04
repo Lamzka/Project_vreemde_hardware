@@ -6,10 +6,10 @@ public class WheelButtonInput : ButtonInputSubject
     public List<bool> ButtonStates = new List<bool>(new bool[128]);
 
     //Is a button being pressed?
-    bool isBeingPressed = false;
+    private bool isBeingPressed = false;
 
     //timer to prevent multiple inputs
-    float timer = 0;
+    private float timer = 0;
 
     private void Start()
     {
