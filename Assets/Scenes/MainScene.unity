@@ -4342,16 +4342,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 5728708546911710722}
-  isUsingGravity: 1
-  ismovingVerticaly: 0
+  isUsingGravity: 0
+  ismovingVerticaly: 1
   isReversed: 0
-  currentShifterGear: 0
-  maxMovementForce: 45
+  currentShifterGear: 15
+  maxMovementForce: 60
   hightForce: 55
   maxPedalForce: 1.5
   hightForceSmoothing: 3
   minSpeed: 0
-  maxSpeed: 60
+  maxSpeed: 75
 --- !u!65 &2387086051121157774
 BoxCollider:
   m_ObjectHideFlags: 0
