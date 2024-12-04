@@ -2907,6 +2907,11 @@ PrefabInstance:
       propertyPath: m_RequestedTrackingOriginMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1068854507811148407, guid: 9caa515d74550e046888b8827fb158d7,
+        type: 3}
+      propertyPath: packageDampening
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2793852205982723998, guid: 9caa515d74550e046888b8827fb158d7,
         type: 3}
       propertyPath: spawnTimer
@@ -2919,9 +2924,19 @@ PrefabInstance:
       objectReference: {fileID: 868139104}
     - target: {fileID: 4450661849251463974, guid: 9caa515d74550e046888b8827fb158d7,
         type: 3}
+      propertyPath: maxSpeed
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4450661849251463974, guid: 9caa515d74550e046888b8827fb158d7,
+        type: 3}
       propertyPath: rigidbody
       value: 
       objectReference: {fileID: 2123927895925764212}
+    - target: {fileID: 4450661849251463974, guid: 9caa515d74550e046888b8827fb158d7,
+        type: 3}
+      propertyPath: maxMovementForce
+      value: 45
+      objectReference: {fileID: 0}
     - target: {fileID: 5585716585264469990, guid: 9caa515d74550e046888b8827fb158d7,
         type: 3}
       propertyPath: rb
