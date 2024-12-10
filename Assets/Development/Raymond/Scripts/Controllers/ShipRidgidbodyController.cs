@@ -24,6 +24,8 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float minSpeed = 10;
     [SerializeField] private float maxSpeed = 100;
 
+    [SerializeField] private GameObject shipLights;
+
     void Start()
     {
         // Assign the Rigidbody component of the game object.
@@ -168,8 +170,8 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     {
         switch (button, isButttonPressed, isUsingGravity)
         {
-            case (0, true, true): isUsingGravity = false; break; // Disables gravity for takeoff.
-            case (0, true, false): isUsingGravity = true; break; // Enables gravity for landing.
+            case (0, true, true): isUsingGravity = false; shipLights.SetActive(true); break;// Disables gravity for takeoff.
+            case (0, true, false): isUsingGravity = true; shipLights.SetActive(false); break;// Enables gravity for landing.
         }
 
         rigidbody.useGravity = isUsingGravity; // Updates Rigidbody gravity state.
