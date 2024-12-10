@@ -15,6 +15,7 @@ TagManager:
   - GameManagers
   - LineRenderer
   - PlayerShip
+  - LineFollowTransform
   layers:
   - Default
   - TransparentFX

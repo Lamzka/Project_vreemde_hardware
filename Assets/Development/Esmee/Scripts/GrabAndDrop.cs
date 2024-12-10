@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GrabAndDrop : QuestInfoSubject, IButtonInput
 {
-
     public int ButtonIndex = 1; //integer corosponding to the button that will be used to pick up and drop the package
 
     public bool isCollected; //if a package collected by the ship
@@ -53,7 +52,6 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
             packageRigidbody = other.GetComponent<Rigidbody>();
 
             OnSecurePackage(other.GetComponent<Package>().Info);
-
         }
     }
 
@@ -68,8 +66,6 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
             packageRigidbody = null;
 
             OnSecurePackage(null);
-            Debug.Log("exit");
-
         }
     }
 
