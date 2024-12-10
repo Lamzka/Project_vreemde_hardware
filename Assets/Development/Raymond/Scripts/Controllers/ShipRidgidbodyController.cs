@@ -26,6 +26,8 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float minSpeed = 10;
     [SerializeField] private float maxSpeed = 100;
 
+    [SerializeField] private GameObject shipLights;
+
 
     void Start()
     {
@@ -168,8 +170,8 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
         switch (button, isButttonPressed, isUsingGravity)
         {
-            case (0, true, true): isUsingGravity = false; break;
-            case (0, true, false): isUsingGravity = true; break;
+            case (0, true, true): isUsingGravity = false; shipLights.SetActive(true); break;
+            case (0, true, false): isUsingGravity = true; shipLights.SetActive(false); break;
         }
 
         rigidbody.useGravity = isUsingGravity;
