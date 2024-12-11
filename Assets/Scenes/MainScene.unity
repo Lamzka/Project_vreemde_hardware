@@ -7015,6 +7015,12 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4711208715938537054, guid: eb42c0a31d472844c96fdd7a29b06769, type: 3}
+--- !u!1 &839343185 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8341554862396656068, guid: 552bff3b7ed785f4b999344ded2fc375,
+    type: 3}
+  m_PrefabInstance: {fileID: 8183203358050310375}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &842309710
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -29567,6 +29573,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4773294347219089745, guid: 552bff3b7ed785f4b999344ded2fc375,
         type: 3}
+      propertyPath: shipLights
+      value: 
+      objectReference: {fileID: 839343185}
+    - target: {fileID: 4773294347219089745, guid: 552bff3b7ed785f4b999344ded2fc375,
+        type: 3}
       propertyPath: maxMovementForce
       value: 60
       objectReference: {fileID: 0}
@@ -29633,6 +29644,11 @@ PrefabInstance:
     - target: {fileID: 7106820385123044271, guid: 552bff3b7ed785f4b999344ded2fc375,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8341554862396656068, guid: 552bff3b7ed785f4b999344ded2fc375,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8508185527542861611, guid: 552bff3b7ed785f4b999344ded2fc375,
