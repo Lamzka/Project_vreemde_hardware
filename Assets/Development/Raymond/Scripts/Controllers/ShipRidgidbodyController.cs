@@ -22,7 +22,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
     // Speed constraints for the ship's horizontal movement.
     [SerializeField] private float minSpeed = 10;
-    [SerializeField] private float maxSpeed = 100;
+    public float maxSpeed = 100;
 
     [SerializeField] private GameObject shipLights;
 
