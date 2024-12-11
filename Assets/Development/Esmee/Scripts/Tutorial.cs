@@ -1,50 +1,154 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tutorial : MonoBehaviour
+public class Tutorial : MonoBehaviour, IButtonInput
 {
     [SerializeField] private List<GameObject> sprites = new List<GameObject>(); //list with all slides
     [SerializeField] private List<AudioClip> aiVoice = new List<AudioClip>(); //list with all audio clips
     [SerializeField] private AudioSource audioSrc; //audio source
     private int currentSlide = 0; //slides start at the first one
 
-    private void Start()
+    private int RequestedButton;
+    private int currentButtonPressed;
+
+    private bool TaskOngoing;
+
+    private bool isPlaying()
     {
-        StartCoroutine(NextSlide());
+        if (audioSrc.isPlaying)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }   
     }
 
-    IEnumerator NextSlide()
+    private bool buttonRequitementCheck()
     {
-        for (int i = 0; i < sprites.Count; i++) // Loop through all slides
+        if (currentButtonPressed == RequestedButton)
         {
-            if (currentSlide >= 0)
-            {
-                /* sprites[currentSlide].SetActive(false); // turn off the last slide*/
-            }
-
-            /* currentSlide = i;
-             sprites[currentSlide].SetActive(true);*/ //activate the next slide
-
-            if (i < aiVoice.Count)
-            {
-                audioSrc.clip = aiVoice[i];
-                audioSrc.Play(); //start playing audio
-
-                while (audioSrc.isPlaying) //waits until the audio is finished playing
-                {
-                    yield return null;
-                }
-            }
-
-            yield return new WaitForSeconds(3f); //wait a few seconds before the next slide
+            return true;
+        }
+        else
+        {
+            return false;
         }
 
-        SceneManager.LoadScene("MainScene"); //load main scene
+    }
+
+    private void Start()
+    {
+        currentSlide = 0;
+        TaskOngoing = false;
+        audioSrc.Stop();
+    }
+
+    public void OnButton(int button, bool State)
+    {
+        button = currentButtonPressed;
+    }
+
+   
+
+    private void Update()
+    {
+        if (!TaskOngoing && !isPlaying())
+        {
+            NextSlide();
+
+            switch (currentSlide)
+            {
+                case (0): TutorialStart(); break;
+                case (1): ascend(); break;
+            }
+        }
+
+      
+    }
+
+    private void playClip()
+    {
+        audioSrc.clip = aiVoice[currentSlide];
+        audioSrc.Play();
+    }
+    private void NextSlide()
+    {
+        currentSlide++;
+        audioSrc.Stop();
+        TaskOngoing = false;
     }
 
 
+    private void TutorialStart()
+    {
+        if (!isPlaying())
+        playClip();
+    }
+
+    private void ascend()
+    {
+        TaskOngoing = true;
+        playClip();
+        StartCoroutine(WaitTillButtonPress());
+  
+    }
+
+    bool test = false;
+    IEnumerator WaitTillAudioIsFinished()
+    {
+        yield return new WaitUntil(isPlaying);
+    }
+
+    IEnumerator WaitTillButtonPress()
+    {
+        yield return new WaitUntil(buttonRequitementCheck);
+
+    }
+
+  
+
+  
+
+
+    
+
+
+
+    /*  IEnumerator NextSlide()
+      {
+          for (int i = 0; i < sprites.Count; i++) // Loop through all slides
+          {
+              if (currentSlide >= 0)
+              {
+                  *//* sprites[currentSlide].SetActive(false); // turn off the last slide*//*
+              }
+
+              *//* currentSlide = i;
+               sprites[currentSlide].SetActive(true);*//* //activate the next slide
+
+              if (i < aiVoice.Count)
+              {
+                  audioSrc.clip = aiVoice[i];
+                  audioSrc.Play(); //start playing audio
+
+                  while (audioSrc.isPlaying) //waits until the audio is finished playing
+                  {
+                      yield return null;
+                  }
+              }
+
+              yield return new WaitForSeconds(3f); //wait a few seconds before the next slide
+          }
+
+          SceneManager.LoadScene("MainScene"); //load main scene
+      }
+
+  */
 
 
     /* public bool buttonpressed;
