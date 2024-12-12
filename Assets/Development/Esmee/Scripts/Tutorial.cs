@@ -4,7 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Tutorial : MonoBehaviour, IButtonInput
+public class Tutorial : MonoBehaviour, IButtonInput, IWheelInput
 {
     [SerializeField] private List<GameObject> sprites = new List<GameObject>(); //list with all slides
     [SerializeField] private List<AudioClip> aiVoice = new List<AudioClip>(); //list with all audio clips
@@ -15,6 +15,8 @@ public class Tutorial : MonoBehaviour, IButtonInput
     private int currentButtonPressed;
 
     private bool TaskOngoing = true;
+
+    private float currentWheelRotation;
 
     private bool isNotPlaying()
     {
@@ -38,7 +40,30 @@ public class Tutorial : MonoBehaviour, IButtonInput
         {
             return false;
         }
+    }
 
+    private bool isWheelToTheLeft()
+    {
+       if(currentWheelRotation > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private bool isWheelToTheRight()
+    {
+        if (currentWheelRotation > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private void Start()
@@ -53,7 +78,12 @@ public class Tutorial : MonoBehaviour, IButtonInput
         button = currentButtonPressed;
     }
 
-   
+    public void OnWheelInput(float input)
+    {
+        input = currentWheelRotation;
+    }
+
+
 
     private void Update()
     {
@@ -63,7 +93,7 @@ public class Tutorial : MonoBehaviour, IButtonInput
             switch (currentSlide)
             {
                 case (0): TutorialStart(); break;
-                case (1): ascend(); break;
+                case (1): Ascend(); break;
             }
         }
 
@@ -93,7 +123,7 @@ public class Tutorial : MonoBehaviour, IButtonInput
         StartCoroutine(WaitTillAudioIsFinished());
     }
 
-    private void ascend()
+    private void Ascend()
     {
         TaskOngoing = true;
 
@@ -101,7 +131,11 @@ public class Tutorial : MonoBehaviour, IButtonInput
             playClip();
 
         StartCoroutine(WaitTillButtonPress());
-  
+    }
+
+    private void TurnToLeft()
+    {
+
     }
 
    
@@ -120,12 +154,25 @@ public class Tutorial : MonoBehaviour, IButtonInput
 
     }
 
-  
+    IEnumerator WaitTillWheelHasTurnedLeft()
+    {
+        yield return new WaitUntil(isWheelToTheLeft);
+        NextSlide();
+        TaskOngoing = false;
+    }
 
-  
+    IEnumerator WaitTillWheelHasTurnedRight()
+    {
+        yield return new WaitUntil(isWheelToTheLeft);
+        NextSlide();
+        TaskOngoing = false;
+    }
 
 
-    
+
+
+
+
 
 
 
