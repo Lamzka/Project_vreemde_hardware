@@ -302,12 +302,25 @@ MonoBehaviour:
   aiVoice:
   - {fileID: 8300000, guid: a05c7083cb0097146b96dc1223a1b852, type: 3}
   - {fileID: 8300000, guid: bf8b19a12169a87458899d25f4aabb35, type: 3}
-  - {fileID: 8300000, guid: 0812c93bfe7e8d045be269a3d3f73a62, type: 3}
+  - {fileID: 8300000, guid: 60c9aef4edce5874d95c12e528bf5dbb, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 3e8f0c786b870884a9aff5331d48b156, type: 3}
   - {fileID: 8300000, guid: 82ad04e8dfbdf87498a1002b084a2a95, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 8300000, guid: 07db693b48082224cad0dfc3feba86e2, type: 3}
-  - {fileID: 8300000, guid: 8b9533ba976704d4da6803e6c6dd6675, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 8080a2b2b21d8544aa1db4f934579ebc, type: 3}
+  - {fileID: 8300000, guid: 8cac71e70d137b447ad77a8618ba72d8, type: 3}
   - {fileID: 8300000, guid: cc09d5226a54bcd4581901f6d8b9a2cd, type: 3}
   audioSrc: {fileID: 118690945}
+  RequestedMaxLeftWheelRotation: 0
+  RequestedMaxRightWheelRotation: 0
+  RequestedGasPedalInput: 50
+  RequestedBreakPedalInput: 50
 --- !u!4 &118690944
 Transform:
   m_ObjectHideFlags: 0
