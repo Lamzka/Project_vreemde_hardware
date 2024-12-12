@@ -14,17 +14,17 @@ public class Tutorial : MonoBehaviour, IButtonInput
     private int RequestedButton;
     private int currentButtonPressed;
 
-    private bool TaskOngoing;
+    private bool TaskOngoing = true;
 
-    private bool isPlaying()
+    private bool isNotPlaying()
     {
         if (audioSrc.isPlaying)
         {
-            return true;
+            return false;
         }
         else 
         {
-            return false;
+            return true;
         }   
     }
 
@@ -43,9 +43,9 @@ public class Tutorial : MonoBehaviour, IButtonInput
 
     private void Start()
     {
-        currentSlide = 0;
-        TaskOngoing = false;
         audioSrc.Stop();
+        currentSlide = 0;
+        TaskOngoing = false;    
     }
 
     public void OnButton(int button, bool State)
@@ -57,9 +57,8 @@ public class Tutorial : MonoBehaviour, IButtonInput
 
     private void Update()
     {
-        if (!TaskOngoing && !isPlaying())
+        if (!TaskOngoing && isNotPlaying())
         {
-            NextSlide();
 
             switch (currentSlide)
             {
@@ -73,40 +72,51 @@ public class Tutorial : MonoBehaviour, IButtonInput
 
     private void playClip()
     {
+        audioSrc.Stop();
         audioSrc.clip = aiVoice[currentSlide];
         audioSrc.Play();
     }
     private void NextSlide()
     {
         currentSlide++;
-        audioSrc.Stop();
         TaskOngoing = false;
     }
 
 
     private void TutorialStart()
     {
-        if (!isPlaying())
+        TaskOngoing = true;
+
+        if (isNotPlaying())
         playClip();
+
+        StartCoroutine(WaitTillAudioIsFinished());
     }
 
     private void ascend()
     {
         TaskOngoing = true;
-        playClip();
+
+        if (isNotPlaying())
+            playClip();
+
         StartCoroutine(WaitTillButtonPress());
   
     }
 
-    bool test = false;
+   
     IEnumerator WaitTillAudioIsFinished()
     {
-        yield return new WaitUntil(isPlaying);
+        yield return new WaitUntil(isNotPlaying);
+        NextSlide();
+        TaskOngoing = false;
     }
 
     IEnumerator WaitTillButtonPress()
     {
         yield return new WaitUntil(buttonRequitementCheck);
+        NextSlide();
+        TaskOngoing = false;
 
     }
 

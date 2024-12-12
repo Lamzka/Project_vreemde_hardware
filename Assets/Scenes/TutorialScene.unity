@@ -1593,6 +1593,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShipPrototype6VR
       objectReference: {fileID: 0}
+    - target: {fileID: 4091673486699581118, guid: 552bff3b7ed785f4b999344ded2fc375,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7106820385123044271, guid: 552bff3b7ed785f4b999344ded2fc375,
         type: 3}
       propertyPath: m_LocalPosition.x
