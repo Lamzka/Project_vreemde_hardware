@@ -13,14 +13,14 @@ public class PackageQuestHandler : MonoBehaviour
     private void Start()
     {
         // Initializes the package count display at the start of the game or scene.
-        pakcageCountText.text = "Packages to Deliver: " + PackagesDeliverd + "/4";
+        pakcageCountText.text = PackagesDeliverd + "/4";
     }
 
     // Increases the package delivery count and updates the display.
     public void AddPoint()
     {
         PackagesDeliverd++; // Increment the total number of delivered packages.
-        pakcageCountText.text = "Packages to Deliver: " + PackagesDeliverd + "/4"; // Update the UI.
+        pakcageCountText.text = PackagesDeliverd + "/4"; // Update the UI.
 
         // Check if all 4 packages are delivered.
         if (PackagesDeliverd >= 4)
