@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedControler : MonoBehaviour
@@ -15,11 +13,11 @@ public class SpeedControler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-            ridgidbodyController.maxSpeed = insideSpeed;
+        ridgidbodyController.maxMovementForce = insideSpeed;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        ridgidbodyController.maxSpeed = outsideSpeed;
+        ridgidbodyController.maxMovementForce = outsideSpeed;
     }
 }

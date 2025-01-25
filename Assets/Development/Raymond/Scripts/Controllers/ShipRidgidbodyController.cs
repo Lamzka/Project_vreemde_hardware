@@ -12,7 +12,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private int currentShifterGear; // Tracks the current gear for vertical movement.
 
     // Maximum forces for movement and vertical actions.
-    [SerializeField] private float maxMovementForce;
+    [SerializeField] public float maxMovementForce;
     [SerializeField] private float hightForce;
 
     [SerializeField] private float maxPedalForce; // Maximum force applied when using the brake pedal.
@@ -21,8 +21,9 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     [SerializeField] private float hightForceSmoothing;
 
     // Speed constraints for the ship's horizontal movement.
-    [SerializeField] private float minSpeed = 10;
-    public float maxSpeed = 100;
+    [SerializeField]
+    private float minSpeed; //= 10;
+    public float maxSpeed; //= 100;
 
     [SerializeField] private GameObject shipLights;
 
@@ -98,7 +99,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
     // Controls horizontal movement based on the input intensity.
     private void HorizontalMovement(float intensity)
     {
-        float appliedForce = Mathf.Clamp(intensity, 0, maxMovementForce); // Limits the applied force.
+        float appliedForce = Mathf.Clamp(intensity, 0, maxMovementForce); // Limits the applied force. 
         Vector3 localVelocity = transform.InverseTransformDirection(rigidbody.velocity); // Converts velocity to local space.
         Vector3 forceDirection = Vector3.zero;
 
@@ -130,7 +131,7 @@ public class ShipRidgidbodyController : MonoBehaviour, IButtonInput, IPedalInput
 
         if (intensity > 0)
         {
-            rigidbody.AddRelativeForce(forceDirection * appliedForce, ForceMode.Force); // Applies force for movement.
+            rigidbody.AddRelativeForce(forceDirection * appliedForce, ForceMode.Force); // Applies force for movement. 
         }
     }
 

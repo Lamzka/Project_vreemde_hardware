@@ -99,7 +99,7 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
             isCollected = true;
 
             grabClawAnimations.SetBool("Let go", false);
-            grabClawAnimations.SetBool("Grabed", true);
+            grabClawAnimations.SetBool("Grabed", true);  //dit gebeurt niet vgm?
         }
         else if (button == ButtonIndex && state == true && canCollect == false && isCollected == true) //if the button is pressed and the ship can not collect a package and the ship has collected a package
         {
