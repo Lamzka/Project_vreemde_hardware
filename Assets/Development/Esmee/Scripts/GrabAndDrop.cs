@@ -19,8 +19,8 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
 
     private float dropOffset = 2.0f; //offset from the ship where the package will be dropped
 
-    [SerializeField] private GameObject grabbed;
-    [SerializeField] private GameObject notGrabbed;
+
+    [SerializeField] private Animator grabClawAnimations;
 
     void Start()
     {
@@ -98,8 +98,8 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
 
             isCollected = true;
 
-            notGrabbed.gameObject.SetActive(false);
-            grabbed.gameObject.SetActive(true);
+            grabClawAnimations.SetBool("Let go", false);
+            grabClawAnimations.SetBool("Grabed", true);
         }
         else if (button == ButtonIndex && state == true && canCollect == false && isCollected == true) //if the button is pressed and the ship can not collect a package and the ship has collected a package
         {
@@ -113,8 +113,9 @@ public class GrabAndDrop : QuestInfoSubject, IButtonInput
             package = null;
             packageRigidbody = null;
 
-            notGrabbed.gameObject.SetActive(true);
-            grabbed.gameObject.SetActive(false);
+            grabClawAnimations.SetBool("Grabed", false);
+
+            grabClawAnimations.SetBool("Let go", true);
         }
     }
 
