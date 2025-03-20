@@ -20,6 +20,6 @@ public class PressAnyKeyToStart : MonoBehaviour, IButtonInput
 
     void GoToNextScene(int Button)
     {
-        SceneManager.LoadScene("TutorialScene");
+        SceneManager.LoadScene("MainScene"); //change back
     }
 }

@@ -23,6 +23,12 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
     [SerializeField] private const float DeadzoneMin = -1f;
     [SerializeField] private const float DeadzoneMax = 1f;
 
+    [SerializeField] private GameObject wheel;
+    public float rotationSpeed = 100f; // Aanpasbare rotatiesnelheid
+    private float currentWheelRotation = 0f; // Houd de rotatie van het stuur bij
+
+
+
     private void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -49,7 +55,6 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
         LogitechGSDK.LogiUpdate();
 
         ApplyPasiveForceFeedback();
-
 
     }
 
@@ -79,6 +84,10 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
         rigidbody.AddRelativeTorque(Vector3.up * Torque * NormalizedInput, ForceMode.Force);
         // Debug.Log("Wheel Input: " + NormalizedInput);
 
+        currentWheelRotation += NormalizedInput * rotationSpeed * Time.deltaTime; //deze en de 2 regels hieronder toegevoegd voor rotatie wiel, testen, asl niet werkt hier aanpassen!!
+        currentWheelRotation = Mathf.Clamp(currentWheelRotation, -450f, 450f);
+
+        wheel.transform.localRotation = Quaternion.Euler(currentWheelRotation, 0, 0);
 
     }
 
@@ -88,4 +97,16 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
         LogitechGSDK.LogiPlaySpringForce(0, Offset, Saturation, Coefficient);
     }
 
+    /*private void RotateTheWheel()
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            wheel.transform.Rotate(rotationSpeed * Time.deltaTime, 0, 0, Space.Self); // Rotatie op X-as in lokale ruimte
+        }
+        else if (Input.GetKey(KeyCode.Q))
+        {
+            wheel.transform.Rotate(-rotationSpeed * Time.deltaTime, 0, 0, Space.Self);
+        }
+
+    }*/
 }
