@@ -84,7 +84,7 @@ public class TurnWithWheel : MonoBehaviour, IWheelInput
         rigidbody.AddRelativeTorque(Vector3.up * Torque * NormalizedInput, ForceMode.Force);
         // Debug.Log("Wheel Input: " + NormalizedInput);
 
-        currentWheelRotation += NormalizedInput * rotationSpeed * Time.deltaTime; //deze en de 2 regels hieronder toegevoegd voor rotatie wiel, testen, asl niet werkt hier aanpassen!!
+        currentWheelRotation += -NormalizedInput * rotationSpeed * Time.deltaTime; //deze en de 2 regels hieronder toegevoegd voor rotatie wiel, testen, asl niet werkt hier aanpassen!!
         currentWheelRotation = Mathf.Clamp(currentWheelRotation, -450f, 450f);
 
         wheel.transform.localRotation = Quaternion.Euler(currentWheelRotation, 0, 0);
